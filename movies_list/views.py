@@ -19,7 +19,10 @@ from .models import Award_list
 from .forms import *
 @login_required
 def Award_list_create(request):
-	form=Create_Award_list_form(request.POST,request.FILES)
+	form=Create_Award_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -38,7 +41,10 @@ def Award_list_create(request):
 	return render(request,'movies_list/list_create.html',context)
 @login_required
 def Cast_list_create(request):
-	form=Create_Cast_list_form(request.POST,request.FILES)
+	form=Create_Cast_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -58,7 +64,10 @@ def Cast_list_create(request):
 
 @login_required
 def Director_list_create(request):
-	form=Create_Director_list_form(request.POST,request.FILES)
+	form=Create_Director_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -77,7 +86,10 @@ def Director_list_create(request):
 	return render(request,'movies_list/list_create.html',context)
 @login_required
 def Writer_list_create(request):
-	form=Create_Writer_list_form(request.POST,request.FILES)
+	form=Create_Writer_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -97,7 +109,10 @@ def Writer_list_create(request):
 
 @login_required
 def Country_list_create(request):
-	form=Create_Country_list_form(request.POST,request.FILES)
+	form=Create_Country_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -117,10 +132,10 @@ def Country_list_create(request):
 
 @login_required
 def Genre_list_create(request):
-	form=Create_Genre_list_form(request.POST,request.FILES)
-	url=request.path[1:-5]
-	
-	
+	form=Create_Genre_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	if form.is_valid():
 		if request.user.is_staff:
 			form.save()
@@ -137,7 +152,10 @@ def Genre_list_create(request):
 
 @login_required  
 def Language_list_create(request):
-	form=Create_Language_list_form(request.POST,request.FILES)
+	form=Create_Language_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -156,7 +174,10 @@ def Language_list_create(request):
 	return render(request,'movies_list/list_create.html',context)
 @login_required
 def Quality_list_create(request):
-	form=Create_Quality_list_form(request.POST,request.FILES)
+	form=Create_Quality_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -176,7 +197,10 @@ def Quality_list_create(request):
 
 @login_required
 def Server_list_create(request):
-	form=Create_Server_list_form(request.POST,request.FILES)
+	form=Create_Server_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -195,7 +219,10 @@ def Server_list_create(request):
 	return render(request,'movies_list/list_create.html',context)
 @login_required
 def Content_type_list_create(request):
-	form=Create_Content_type_list_form(request.POST,request.FILES)
+	form=Create_Content_type_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -214,7 +241,10 @@ def Content_type_list_create(request):
 	return render(request,'movies_list/list_create.html',context)
 @login_required
 def Subtitle_list_create(request):
-	form=Create_Subtitle_list_form(request.POST,request.FILES)
+	form=Create_Subtitle_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -234,7 +264,10 @@ def Subtitle_list_create(request):
 
 @login_required
 def Movies_type_list_create(request):
-	form=Create_Movies_type_list_form(request.POST,request.FILES)
+	form=Create_Movies_type_list_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -254,7 +287,10 @@ def Movies_type_list_create(request):
 
 @login_required
 def Movies_create(request):
-	form=Create_Movies_form(request.POST,request.FILES)
+	form=Create_Movies_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -276,7 +312,10 @@ def Movies_create(request):
 
 @login_required
 def Season_create(request):
-	form=Create_Season_form(request.POST,request.FILES)
+	form=Create_Season_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -302,7 +341,10 @@ def Season_create(request):
 
 @login_required
 def Episode_create(request):
-	form=Create_Episode_form(request.POST,request.FILES)
+	form=Create_Episode_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
@@ -328,7 +370,10 @@ def Episode_create(request):
 
 @login_required
 def Link_create(request):
-	form=Create_Link_form(request.POST,request.FILES)
+	form=Create_Link_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
 	url=request.path[1:-5]
 	
 	
