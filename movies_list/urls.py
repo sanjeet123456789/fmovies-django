@@ -13,9 +13,29 @@ from .views import (
 )
 from .views import *
 from .views_update import *
+from .views_delete import *
 urlpatterns = [
     path("",Index,name="movies-index"),
     path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
+
+
+
+    path('award/<int:award_id>/delete/',Award_list_delete,name="award-list-delete"),
+    path('cast/<int:cast_id>/delete/',Cast_list_delete,name="cast-list-delete"),
+    path('director/<int:director_id>/delete',Director_list_delete,name="director-list-delete"),
+    path('writer/<int:writer_id>/delete',Writer_list_delete,name="writer-list-delete"),
+    path('country/<int:country_id>/delete',Country_list_delete,name="country-list-delete"),
+    path('genre/<int:genre_id>/delete',Genre_list_delete,name="genre-list-delete"),
+    path('language/<int:language_id>/delete',Language_list_delete,name="language-list-delete"),
+    path('quality/<int:quality_id>/delete',Quality_list_delete,name="quality-list-delete"),
+    path('server/<int:server_id>/delete',Server_list_delete,name="server-list-delete"),
+    path('content-type/<int:server_type_id>/delete',Content_type_list_delete,name="content-type-list-delete"),
+    path('subtitle/<int:subtitle_id>/delete',Subtitle_list_delete,name="subtitle-list-delete"),
+    path('movies-type/<int:movies_type_id>/delete',Movies_type_list_delete,name="movies-type-list-delete"),
+    path('movies/<int:movies_id>/delete',Movies_delete,name='movies-delete'),
+    path('season/<int:season_id>/delete',Season_delete,name='season-delete'),
+    path('episode/<int:episode_id>/delete',Episode_delete,name='episode-delete'),
+    path('link/<int:link_id>/delete',Link_delete,name='link-delete'),
 
     path('award/<int:award_id>/update',Award_list_update,name="award-list-update"),
     path('cast/<int:cast_id>/update',Cast_list_update,name="cast-list-update"),

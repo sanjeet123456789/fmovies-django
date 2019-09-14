@@ -37,17 +37,17 @@ def Award_list_update(request,award_id):
 			instance=obj,
 		)
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f''+url+' List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
 		print(form.errors)
-		context={
-		"form":form,
-		"form_name":url,
-		}
+	context={
+	"form":form,
+	"form_name":url,
+	}
 	return render(request,'movies_list/list_create.html',context)
 	
 @login_required
@@ -98,9 +98,9 @@ def Director_list_update(request,director_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Director List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -128,9 +128,9 @@ def Writer_list_update(request,writer_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Writer List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -158,9 +158,9 @@ def Country_list_update(request,country_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Country List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -189,9 +189,9 @@ def Quality_list_update(request,quality_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Quality List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -220,9 +220,9 @@ def Genre_list_update(request,genre_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Quality List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -250,9 +250,9 @@ def Language_list_update(request,language_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Language List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -280,9 +280,9 @@ def Server_list_update(request,server_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Server List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -310,9 +310,9 @@ def Content_type_list_update(request,server_type_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Content type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -340,9 +340,9 @@ def Subtitle_list_update(request,subtitle_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Subtitle List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -371,9 +371,9 @@ def Movies_type_list_update(request,movies_type_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -402,9 +402,9 @@ def Movies_update(request,movies_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -432,9 +432,9 @@ def Season_update(request,season_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -462,9 +462,9 @@ def Episode_update(request,episode_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -493,9 +493,9 @@ def Link_update(request,link_id):
 	else:
 		url=request.path[1:-12]
 	if form.is_valid():
-		form.save()
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
+			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
