@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Max
-
+from math import ceil
 from django.views.generic import(
 	ListView,
 	DetailView,
@@ -17,6 +17,50 @@ from django.views.generic import(
 	)
 from .models import Award_list
 from .forms import *
+
+def Index(request):
+	movies_index=Movies_list.objects.all()
+	all_Genre=[]
+	catmovies=Movies_list.objects.values('genre','movies_id')
+	cats={item['genre'] for item in catmovies}
+	for cat in cats:
+		movie=Movies_list.objects.filter(genre=cat)
+		n=len(movie)
+		nSlides=n//4 + ceil((n/4)-(n//4))
+		all_Genre.append([movie,range(1,nSlides),nSlides])
+
+	context={
+		'all_Genre':all_Genre
+		# "categories":movies_categories
+	}
+	return render(request,"movies_list/index.html",context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @login_required
 def Award_list_create(request):
 	form=Create_Award_list_form(

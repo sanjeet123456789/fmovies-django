@@ -14,6 +14,9 @@ from .views import (
 from .views import *
 from .views_update import *
 urlpatterns = [
+    path("",Index,name="movies-list-index"),
+
+
     path('award/<int:award_id>/update',Award_list_update,name="award-list-update"),
     path('cast/<int:cast_id>/update',Cast_list_update,name="cast-list-update"),
     path('director/<int:director_id>/update',Director_list_update,name="director-list-update"),

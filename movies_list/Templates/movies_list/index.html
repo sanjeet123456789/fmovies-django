@@ -1,0 +1,73 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+
+  {% block content%}
+{% load static %}
+<div class="container">
+  <!-- slide shows start here -->
+{% for movie,range,nSlides in all_Genre %}
+
+{{nSlides}}
+<h1 class="my-4" >{{movie.0}}</h1>
+<div class="rows">
+<a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev" >
+  <span class="carousel-control-prev-icon"></span>
+</a>
+<a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next" >
+  <span class="carousel-control-next-icon"></span>
+</a>
+<div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+
+      {% for i in range %}
+      <li data-target="demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" class="active"></li>
+      {% endfor %}
+      
+    </ul>
+    <!-- Slideshow start here  -->
+    <div class="container carousel-inner no-padding">
+     <div class="carousel-item active"> 
+       
+
+        {% for i in product %}
+
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="card align-items-center" style="width: 18rem;">
+            <img src='/media/{{i.image}} ' class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name|slice:"0.15"}}..,</h5>
+              <p class="card-text">{{i.desc|slice:"0:13"}}...</p>
+              <h6 class="card-title" >Price:<span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+              <span id="divpr{{i.id}}" class="divpr">
+              <button  id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+            </span>
+              <a href="/shop/products/{{i.id}}"><button  id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a>
+
+
+            </div>
+          </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div>
+      <div class="carousel-item">
+
+        {%endif%}
+        {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+<!-- left and right controls for slide -->
+<!-- <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev" >
+  <span class="carousel-control-prev-icon"></span>
+</a>
+<a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next" >
+  <span class="carousel-control-next-icon"></span>
+</a> -->
+</div>
+{% endfor %}
+</div>
+
+{% endblock  %}
