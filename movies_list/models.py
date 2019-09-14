@@ -188,13 +188,12 @@ class Movies_list(models.Model):
 	views=models.PositiveIntegerField(default=0)
 	likes=models.PositiveIntegerField(default=0)
 	dislike=models.PositiveIntegerField(default=0)
-	ratting=models.FloatField()
+	ratting=models.FloatField(default=0.0)
 	tags=models.TextField()
 	Quality=models.ForeignKey(Quality_list,on_delete=models.PROTECT)
 	movies_user_id=models.ForeignKey(User, on_delete=models.PROTECT)
 	movies_type=models.ForeignKey(Movies_type_list,on_delete=models.PROTECT)
-	movies_season_id=models.PositiveIntegerField(default=0)
-	movie_episode_id=models.PositiveIntegerField(default=0)	
+	
 
 	def __str__(self):
 		return f'{self.name}'
@@ -204,7 +203,6 @@ class Movies_list(models.Model):
 class Season_list(models.Model):
 	season_id=models.AutoField(primary_key=True)
 	season_movies_id=models.ForeignKey(Movies_list, on_delete=models.CASCADE)
-	movies_season_id=models.PositiveIntegerField()
 	season_no=models.PositiveIntegerField()
 	season_name=models.CharField(max_length=50)
 	season_desc=models.TextField()
@@ -232,7 +230,8 @@ class Episode_list(models.Model):
 
 class Link_list(models.Model):
 	link_id=models.AutoField(primary_key=True)
-	server_name=models.ForeignKey(Server_list,on_delete=models.PROTECT)
+	link_episode_season_id=models.ForeignKey(Episode_list,on_delete=models.PROTECT)
+	link_user_id=models.ForeignKey(User, on_delete=models.PROTECT,blank=True)
 	name=models.CharField(max_length=50)
 	link=models.TextField()
 	upvote=models.PositiveIntegerField(default=0)

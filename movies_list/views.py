@@ -260,7 +260,9 @@ def Movies_create(request):
 	
 	if form.is_valid():
 		if request.user.is_active:
-			form.save()
+			obj = form.save(commit=False)
+			obj.movies_user_id = request.user
+			obj.save()
 			messages.success(request, f'Movies has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -280,7 +282,12 @@ def Season_create(request):
 	
 	if form.is_valid():
 		if request.user.is_active:
-			form.save()
+			x=Movies_list.objects.filter(movies_id=1)
+			x=x[0]
+			obj = form.save(commit=False)
+			obj.season_user_id = request.user
+			obj.season_movies_id=x
+			obj.save()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -301,7 +308,12 @@ def Episode_create(request):
 	
 	if form.is_valid():
 		if request.user.is_active:
-			form.save()
+			x=Season_list.objects.filter(season_id=1)
+			x=x[0]
+			obj = form.save(commit=False)
+			obj.episode_user_id = request.user
+			obj.episode_season_id=x
+			obj.save()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -322,7 +334,12 @@ def Link_create(request):
 	
 	if form.is_valid():
 		if request.user.is_active:
-			form.save()
+			x=Episode_list.objects.filter(episode_id=1)
+			x=x[0]
+			obj = form.save(commit=False)
+			obj.link_user_id = request.user
+			obj.link_episode_season_id=x
+			obj.save()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')

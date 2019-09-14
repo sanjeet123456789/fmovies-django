@@ -64,7 +64,7 @@ class Create_Movies_type_list_form(forms.ModelForm):
 class Create_Movies_form(forms.ModelForm):
 	class Meta:
 		model=Movies_list
-		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','created_at','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type',]
+		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type',]
 
 class Create_Season_form(forms.ModelForm):
 	class Meta:
