@@ -1,0 +1,65 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+{% for project in movies_detail %}
+    <li><a href="">{{ project.name }}{{project.movies_id}}
+
+        
+    </a></li>
+{% endfor %}
+
+{% for doc in movies_details %}
+  {{doc.name}}
+{% endfor %}
+
+{%for cast in cast_movies_details%}
+
+{{cast}}
+{%endfor%}
+
+
+{%for genre in genre_movies_details%}
+
+{{genre}}
+{%endfor%}
+{%for director in director_movies_details%}
+
+{{director}}
+{%endfor%}
+
+
+{%for director in director_movies_details%}
+
+{{genre}}
+{%endfor%}
+{%for writer in writer_movies_details%}
+
+{{writer}}
+{%endfor%}
+{%for awards in awards_movies_details%}
+
+{{awards}}
+{%endfor%}
+{%for country in country_movies_details%}
+
+{{country}}
+{%endfor%}
+
+{%for language in language_movies_details%}
+
+{{language}}
+{%endfor%}
+
+{%for quality in quality_movies_detail%}
+
+{{quality}}
+{%endfor%}
+{%for movies_type in movies_type_movies_details%}
+
+{{movies_type}}
+{%endfor%}
+    </div>
+
+
+{% endblock content %}

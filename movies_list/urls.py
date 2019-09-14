@@ -14,8 +14,8 @@ from .views import (
 from .views import *
 from .views_update import *
 urlpatterns = [
-    path("",Index,name="movies-list-index"),
-
+    path("",Index,name="movies-index"),
+    path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
 
     path('award/<int:award_id>/update',Award_list_update,name="award-list-update"),
     path('cast/<int:cast_id>/update',Cast_list_update,name="cast-list-update"),
