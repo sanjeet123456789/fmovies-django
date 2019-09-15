@@ -69,11 +69,30 @@ def Movies_detail(request,movies_id):
 
 
 
-
-
-
-
-
+@login_required
+def Contact_list(request):
+	form=Create_Contact_form(
+			data=(request.POST or None),
+			files=(request.FILES or None),
+		)
+	url=request.path[1:8]
+	if form.is_valid():
+		if request.user.is_staff:
+			obj = form.save(commit=False)
+			obj.contact_user_id = request.user
+			form.save()
+			messages.success(request, f'Thank you for contacting with us!')
+			return redirect('movies-index')
+			
+		else:
+			messages.warning(request, f'You do not have Admin access!')
+	else:
+		print(form.errors)
+	context={
+		"form":form,
+		"form_name":url
+	}   
+	return render(request,'movies_list/contact.html',context)
 
 
 
@@ -96,12 +115,11 @@ def Award_list_create(request):
 			files=(request.FILES or None),
 		)
 	url=request.path[1:-5]
-	
-	
 	if form.is_valid():
 		if request.user.is_staff:
 			form.save()
 			messages.success(request, f'Award List has been created!')
+			
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -208,6 +226,7 @@ def Genre_list_create(request):
 			data=(request.POST or None),
 			files=(request.FILES or None),
 		)
+	url=request.path[1:-5]
 	if form.is_valid():
 		if request.user.is_staff:
 			form.save()
@@ -363,14 +382,14 @@ def Movies_create(request):
 			data=(request.POST or None),
 			files=(request.FILES or None),
 		)
-	url=request.path[1:-5]
-	
-	
+	url=request.path[1:-5]	
 	if form.is_valid():
+		
 		if request.user.is_active:
 			obj = form.save(commit=False)
 			obj.movies_user_id = request.user
 			obj.save()
+			form.save_m2m()
 			messages.success(request, f'Movies has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -399,6 +418,7 @@ def Season_create(request):
 			obj.season_user_id = request.user
 			obj.season_movies_id=x
 			obj.save()
+			form.save_m2m()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -428,6 +448,7 @@ def Episode_create(request):
 			obj.episode_user_id = request.user
 			obj.episode_season_id=x
 			obj.save()
+			form.save_m2m()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -457,6 +478,7 @@ def Link_create(request):
 			obj.link_user_id = request.user
 			obj.link_episode_season_id=x
 			obj.save()
+			form.save_m2m()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')

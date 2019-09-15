@@ -193,10 +193,19 @@ class Movies_list(models.Model):
 	Quality=models.ForeignKey(Quality_list,on_delete=models.PROTECT)
 	movies_user_id=models.ForeignKey(User, on_delete=models.PROTECT)
 	movies_type=models.ForeignKey(Movies_type_list,on_delete=models.PROTECT)
+	movies_thumbnail=models.ImageField(default='thumbnail.jpg',upload_to='movies_pics')
+
+	def save(self,*args,**kwargs):
+		super().save(*args,**kwargs)
+		img=Image.open(self.movies_thumbnail.path)
+		if img.height > 100 or img.width > 100:
+			output_size = (200,300)
+			image_movies=img.resize(output_size,resample=Image.ANTIALIAS)
+			image_movies.save(self.movies_thumbnail.path)
 	
 
 	def __str__(self):
-		return f'{self.name}'
+		return f'{self.movies_id}'
 	class Meta:
 		verbose_name_plural='movies'
 
@@ -253,7 +262,16 @@ class Link_list(models.Model):
 
 
 
+class Contact(models.Model):
+	msg_id=models.AutoField(primary_key=True)
+	name=models.CharField(max_length=50)
+	contact_user_id=models.ForeignKey(User, on_delete=models.PROTECT,blank=True)
+	email=models.CharField(max_length=50,default="")
+	message=models.TextField(default="")
+	phone=models.CharField(max_length=50,default=0)
+	screenshot=models.ImageField(upload_to='contact_pics',blank=True)
 
+	
 
 
 

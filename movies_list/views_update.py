@@ -58,15 +58,7 @@ def Cast_list_update(request,cast_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=cast_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,cast_id)
 	if form.is_valid():
 		form.save()
 		if request.user.is_staff:
@@ -88,15 +80,7 @@ def Director_list_update(request,director_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=director_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,director_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Director List has been updated!')
@@ -118,15 +102,7 @@ def Writer_list_update(request,writer_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=writer_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,writer_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Writer List has been updated!')
@@ -148,15 +124,7 @@ def Country_list_update(request,country_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=country_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,country_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Country List has been updated!')
@@ -179,15 +147,7 @@ def Quality_list_update(request,quality_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=quality_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,quality_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Quality List has been updated!')
@@ -210,15 +170,7 @@ def Genre_list_update(request,genre_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=genre_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,genre_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Quality List has been updated!')
@@ -240,15 +192,7 @@ def Language_list_update(request,language_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=language_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,language_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Language List has been updated!')
@@ -270,15 +214,7 @@ def Server_list_update(request,server_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=server_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,server_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Server List has been updated!')
@@ -300,15 +236,7 @@ def Content_type_list_update(request,server_type_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=server_type_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,server_type_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Content type List has been updated!')
@@ -330,15 +258,7 @@ def Subtitle_list_update(request,subtitle_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=subtitle_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,subtile_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Subtitle List has been updated!')
@@ -361,15 +281,7 @@ def Movies_type_list_update(request,movies_type_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=movies_type_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,movies_type_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
@@ -392,19 +304,12 @@ def Movies_update(request,movies_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=movies_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,movies_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
 			form.save()
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -422,15 +327,7 @@ def Season_update(request,season_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=season_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,season_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
@@ -452,15 +349,7 @@ def Episode_update(request,episode_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=episode_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,episode_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
@@ -483,15 +372,7 @@ def Link_update(request,link_id):
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	x=link_id
-	if x<10:
-		url=request.path[1:-9]
-	elif x<100:
-		url=request.path[1:-10]
-	elif x<1000:
-		url=request.path[1:-11]
-	else:
-		url=request.path[1:-12]
+	url=url_filter(request,link_id)
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')

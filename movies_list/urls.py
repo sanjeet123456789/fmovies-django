@@ -17,6 +17,7 @@ from .views_delete import *
 urlpatterns = [
     path("",Index,name="movies-index"),
     path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
+    path("contact/",Contact_list,name="fmovies-contact"),
 
 
 

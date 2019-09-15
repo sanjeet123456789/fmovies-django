@@ -1,64 +1,67 @@
 {% extends "users/base.html" %}
 {% load crispy_forms_tags %}
+
+{% block css%}
+<style type="text/css">
+.sidebar{
+    display:none;
+}
+.main-content{
+    flex:auto;
+    max-width:100%;
+}
+
+
+</style>
+
+
+{% endblock %}
+
+
 {% block content %}
-    <div class="content-section">
-{% for project in movies_detail %}
-    <li><a href="">{{ project.name }}{{project.movies_id}}
+    <div class="content-section ">
+        <div class="row ">
+            <nav aria-label="breadcrumb ">
+              <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
+                <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+              </ol>
+            </nav>
+        </div>
+        <div class="row ">
+            <div class="col col-md-4  mx-2 px-0 text-center my-2">
+               
+                <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
 
-        
-    </a></li>
-{% endfor %}
+               
+            </div>
+            <div class="col-md-7   my-2">
+              <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0">{{movies_details.0.name|capfirst}} </h5>
+              <p class="pd-0 m-0  rounded text-secondary">Cast: {%for cast in cast_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{cast|join:""}}</span>{%endfor%}</p>
 
-{% for doc in movies_details %}
-  {{doc.name}}
-{% endfor %}
+              <p class="pd-0 m-0  rounded text-secondary">Genre: {%for genre in genre_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{genre|join:""}}</span>{%endfor%}</p>
 
-{%for cast in cast_movies_details%}
+              <p class="pd-0 m-0  rounded text-secondary">Director: {%for director in director_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{director|join:""}}</span>{%endfor%}</p>
 
-{{cast}}
-{%endfor%}
-
-
-{%for genre in genre_movies_details%}
-
-{{genre}}
-{%endfor%}
-{%for director in director_movies_details%}
-
-{{director}}
-{%endfor%}
+              <p class="pd-0 m-0  rounded text-secondary">Writer: {%for writer in writer_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{writer|join:""}}</span>{%endfor%}</p>
 
 
-{%for director in director_movies_details%}
+              <p class="pd-0 m-0  rounded text-secondary">Awards: {%for award in awards_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{award|join:""}}</span>{%endfor%}</p>
 
-{{genre}}
-{%endfor%}
-{%for writer in writer_movies_details%}
 
-{{writer}}
-{%endfor%}
-{%for awards in awards_movies_details%}
+              <p class="pd-0 m-0  rounded text-secondary">Country: {%for country in country_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{country|join:""}}</span>{%endfor%}</p>
 
-{{awards}}
-{%endfor%}
-{%for country in country_movies_details%}
+              <p class="pd-0 m-0  rounded text-secondary">Language: {%for language in language_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{language|join:""}}</span>{%endfor%}</p>
 
-{{country}}
-{%endfor%}
+              <p class="pd-0 m-0  rounded text-secondary">Quality: {%for quality in quality_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{quality|join:""}}</span>{%endfor%}</p>
 
-{%for language in language_movies_details%}
+              <p class="pd-0 m-0  rounded text-secondary">Movies type : {%for movies_type in movies_type_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{movies_type|join:""}}</span>{%endfor%}</p>
+            </div>
+            
+        </div> 
 
-{{language}}
-{%endfor%}
 
-{%for quality in quality_movies_detail%}
-
-{{quality}}
-{%endfor%}
-{%for movies_type in movies_type_movies_details%}
-
-{{movies_type}}
-{%endfor%}
     </div>
 
 

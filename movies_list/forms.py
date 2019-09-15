@@ -1,10 +1,12 @@
 from django import forms
 from movies_list.models import *
-
+from django.contrib import admin
+from better_filter_widget import BetterFilterWidget
+from dal import autocomplete
 class Create_Award_list_form(forms.ModelForm):
-    class Meta:
-        model=Award_list
-        fields=['award_name','award_image']
+	class Meta:
+		model=Award_list
+		fields=['award_name','award_image']
 
 class Create_Cast_list_form(forms.ModelForm):
 	class Meta:
@@ -64,7 +66,17 @@ class Create_Movies_type_list_form(forms.ModelForm):
 class Create_Movies_form(forms.ModelForm):
 	class Meta:
 		model=Movies_list
-		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type',]
+		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type','movies_thumbnail']
+		
+
+
+
+		# def __init__(self, *args, **kwargs):
+		# 	forms.ModelForm.__init__(self, *args, **kwargs)
+		# 	self.fields['movies_list'].queryset = movies_list.avail.all()
+		# widgets = {
+  #           'cast': forms.CheckboxSelectMultiple,
+  #       }
 
 class Create_Season_form(forms.ModelForm):
 	class Meta:
@@ -79,3 +91,8 @@ class Create_Link_form(forms.ModelForm):
 	class Meta:
 		model=Link_list
 		fields=['name','link','link_type','subtitle','quality']
+
+class Create_Contact_form(forms.ModelForm):
+	class Meta:
+		model=Contact
+		fields=['name','email','message','phone','screenshot']
