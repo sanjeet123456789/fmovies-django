@@ -17,6 +17,15 @@ from .views_delete import *
 urlpatterns = [
     path("",Index,name="movies-index"),
     path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
+    path("genre/<str:genre_name>",Genre_detail,name="genre-detail"),
+    path("cast/<str:cast_name>",Cast_detail,name="cast-detail"),
+    path("director/<str:director_name>",Director_detail,name="director-detail"),
+    path("writer/<str:writer_name>",Writer_detail,name="writer-detail"),
+    path("award/<str:award_name>",Award_detail,name="award-detail"),
+    path("country/<str:country_name>",Country_detail,name="country-detail"),
+    path("language/<str:language_name>",Language_detail,name="language-detail"),
+    path("movies-type/<str:movies_type_name>",Movies_type_detail,name="movies_type-detail"),
+    path("quality/<str:quality_name>",Quality_detail,name="quality-detail"),
     path("contact/",Contact_list,name="fmovies-contact"),
 
 

@@ -268,7 +268,7 @@ class Contact(models.Model):
 	contact_user_id=models.ForeignKey(User, on_delete=models.PROTECT,blank=True)
 	email=models.CharField(max_length=50,default="")
 	message=models.TextField(default="")
-	phone=models.CharField(max_length=50,default=0)
+	phone=models.CharField(max_length=50)
 	screenshot=models.ImageField(upload_to='contact_pics',blank=True)
 
 	

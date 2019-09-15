@@ -30,33 +30,33 @@
             </nav>
         </div>
         <div class="row ">
-            <div class="col col-md-4  mx-2 px-0 text-center my-2">
+            <div class="col col-md-2 mx-2 px-0 text-left my-2">
                
                 <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
 
                
             </div>
-            <div class="col-md-7   my-2">
+            <div class="col-md-9   my-2">
               <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0">{{movies_details.0.name|capfirst}} </h5>
-              <p class="pd-0 m-0  rounded text-secondary">Cast: {%for cast in cast_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{cast|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Cast: {%for cast in cast_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'cast-detail' cast_name=cast.cast_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{cast|join:""}}</span></a>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Genre: {%for genre in genre_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{genre|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Genre: {%for genre in genre_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'genre-detail' genre_name=genre.genre_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{genre|join:""}}</span></a>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Director: {%for director in director_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{director|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Director: {%for director in director_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'director-detail' director_name=director.director_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{director|join:""}}</span></a>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Writer: {%for writer in writer_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{writer|join:""}}</span>{%endfor%}</p>
-
-
-              <p class="pd-0 m-0  rounded text-secondary">Awards: {%for award in awards_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{award|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Writer: {%for writer in writer_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'writer-detail' writer_name=writer.writer_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{writer|join:""}}</span></a>{%endfor%}</p>
 
 
-              <p class="pd-0 m-0  rounded text-secondary">Country: {%for country in country_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{country|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Awards: {%for award in awards_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'award-detail' award_name=award.award_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{award|join:""}}</span></a>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Language: {%for language in language_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{language|join:""}}</span>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Quality: {%for quality in quality_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{quality|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Country: {%for country in country_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'country-detail' country_name=country.country_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{country|join:""}}</span></a>{%endfor%}</p>
 
-              <p class="pd-0 m-0  rounded text-secondary">Movies type : {%for movies_type in movies_type_movies_details%}{% if not forloop.first %} {% endif %}<span class="bg-primary rounded px-1 text-white mr-1">{{movies_type|join:""}}</span>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Language: {%for language in language_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'language-detail' language_name=language.language_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{language|join:""}}</a></span>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Quality: {%for quality in quality_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'quality-detail' quality_name=quality.quality_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{quality|join:""}}</span></a>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Movies type : {%for movies_type in movies_type_movies_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'movies_type-detail' movies_type_name=movies_type.movies_type_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_type|join:""}}</span></a>{%endfor%}</p>
             </div>
             
         </div> 

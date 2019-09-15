@@ -1,0 +1,53 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block css%}
+<style type="text/css">
+.sidebar{
+    display:none;
+}
+.main-content{
+    flex:auto;
+    max-width:100%;
+}
+
+
+</style>
+
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-section ">
+        <div class="row ">
+            <nav aria-label="breadcrumb ">
+              <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
+                <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+              </ol>
+            </nav>
+        </div>
+        <div class="row ">
+            <!-- <div class="col col-md-2 mx-2 px-0 text-left my-2">
+               
+                <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
+
+               
+            </div> -->
+            <div class="col-md-9   my-2">
+              <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0"> </h5>
+              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in quality_details%}{% if not forloop.first %} {% endif %}<a href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p>
+             
+
+  
+            </div>
+            
+        </div> 
+
+
+    </div>
+
+
+{% endblock content %}

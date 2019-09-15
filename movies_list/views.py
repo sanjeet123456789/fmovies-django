@@ -65,8 +65,283 @@ def Movies_detail(request,movies_id):
 	}
 	return render(request,"movies_list/movies_details.html",context)
 
+def Genre_detail(request,genre_name):
+	genre_details=Movies_list.objects.filter(genre__genre_name=genre_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"genre_details":genre_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/genre_details.html",context)
+
+def Cast_detail(request,cast_name):
+	cast_details=Movies_list.objects.filter(cast__cast_name=cast_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"cast_details":cast_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/cast_details.html",context)
+
+def Director_detail(request,director_name):
+	director_details=Movies_list.objects.filter(director__director_name=director_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"director_details":director_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/director_details.html",context)
+def Writer_detail(request,writer_name):
+	writer_details=Movies_list.objects.filter(writer__writer_name=writer_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"x":writer_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/writer_details.html",context)
+def Award_detail(request,award_name):
+	award_details=Movies_list.objects.filter(awards__award_name=award_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"award_details":award_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/award_details.html",context)
+def Country_detail(request,country_name):
+	country_details=Movies_list.objects.filter(country__country_name=country_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"country_details":country_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/country_details.html",context)
+def Language_detail(request,language_name):
+	language_details=Movies_list.objects.filter(language__language_name=language_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"language_details":language_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/language_details.html",context)
 
 
+
+
+def Movies_type_detail(request,movies_type_name):
+	movies_type_details=Movies_list.objects.filter(movies_type__movies_type_name=movies_type_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"movies_type_details":movies_type_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/movies_type_details.html",context)
+
+def Quality_detail(request,quality_name):
+	quality_details=Movies_list.objects.filter(Quality__quality_name=quality_name)
+	# Movies_list.objects.filter(cast__pk=1) reverse reference
+	# genre_movies_details=Genre_list.objects.filter(movies_list__movies_id=movies_id)
+	# cast_movies_details=Cast_list.objects.filter(movies_list__movies_id=movies_id)
+	# director_movies_details=Director_list.objects.filter(movies_list__movies_id=movies_id)
+
+	# writer_movies_details=Writer_list.objects.filter(movies_list__movies_id=movies_id)
+	# awards_movies_details=Award_list.objects.filter(movies_list__movies_id=movies_id)
+	# country_movies_details=Country_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_type_movies_details=Movies_type_list.objects.filter(movies_list__movies_id=movies_id)
+	# movies_user_id_movies_details=User.objects.filter(movies_list__movies_id=movies_id)
+	# language_movies_details=Language_list.objects.filter(movies_list__movies_id=movies_id)
+	# quality_movies_details=Quality_list.objects.filter(movies_list__movies_id=movies_id)#only for manytoone and manytomany relations
+	
+	context={
+		"quality_details":quality_details,
+		# "movies_details":movies_details,
+		# "genre_movies_details":genre_movies_details,
+		# "director_movies_details":director_movies_details,
+		# "cast_movies_details":cast_movies_details,
+		# "writer_movies_details":writer_movies_details,
+		# "awards_movies_details":awards_movies_details,
+		# "country_movies_details":country_movies_details,
+		# "movies_type_movies_details":movies_type_movies_details,
+		# "language_movies_details":language_movies_details,
+		# "movies_user_id_movies_details":movies_user_id_movies_details,
+		# "quality_movies_details":quality_movies_details
+	}
+	return render(request,"movies_list/quality_details.html",context)
 
 
 @login_required
@@ -390,7 +665,11 @@ def Movies_create(request):
 			obj.movies_user_id = request.user
 			obj.save()
 			form.save_m2m()
+			r=Movies_list.objects.aggregate(Max('movies_id'))
+			x=[*r.values()][0]	
 			messages.success(request, f'Movies has been created!')
+			return redirect('movies-detail',x)
+			
 		else:
 			messages.warning(request, f'Please Login to create movies!')
 	else:
