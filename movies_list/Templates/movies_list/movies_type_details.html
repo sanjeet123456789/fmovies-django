@@ -38,7 +38,7 @@
             </div> -->
             <div class="col-md-9   my-2">
               <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0"> </h5>
-              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in movies_type_details%}{% if not forloop.first %} {% endif %}<a href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p>
+              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in movies_type_details%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p>
              
 
   
