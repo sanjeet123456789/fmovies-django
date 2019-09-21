@@ -299,10 +299,10 @@ def Movies_type_list_update(request,movies_type_id):
 @login_required
 def Movies_update(request,movies_id):
 	obj=get_object_or_404(Movies_list,movies_id=movies_id)
-	form=Create_Movies_form(
+	form=Update_Movies_form(
 			data=(request.POST or None),
 			files=(request.FILES or None),
-			instance=obj,
+			instance=obj
 		)
 	url=url_filter(request,movies_id)
 	if form.is_valid():

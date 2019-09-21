@@ -3,7 +3,7 @@
 {% block content %}
     <div class="content-section">
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" id="moviesForm" ajax_load_cast="{% url 'ajax_load_cast' %}" novalidate enctype="multipart/form-data" >
             {% csrf_token %}
             <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{form_name|capfirst}}</legend>
@@ -19,90 +19,21 @@
                    {{form.quality|as_crispy_field}}
                    {{form.movies_type|as_crispy_field}}
                    {{form.movies_thumbnail|as_crispy_field}}
+
+                   <label for="id_cast" class="col-form-label  requiredField">Cast<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="cast" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_cast"> 
+                    <select id="add_cast2" multiple style="width:100%" ></select>
+                    <div id="show_result"></div>
+
+
+
+                   </div> 
+                   
+
+
                 </div>
-                <div class="form-group">
-                    <label for="genre">Genre*</label>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="https://www.jqueryscript.net/demo/Searchable-Multi-select-jQuery-Dropdown/jquery.dropdown.css">
-<script src="https://www.jqueryscript.net/demo/Searchable-Multi-select-jQuery-Dropdown/jquery.dropdown.js"></script>
-                        <div class="genre_list">
-
-                          <select style="display:none"  name="" multiple>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="3">Selected</option>
-                            <option value="6">6</option>
-                            ...
-                          </select>
-                        </div>
-                 </div>
-                 <div class="form-group">
-                    <label for="genre">Cast*</label>
-                        <div class="cast_list">
-                          <select style="display:none"  name="" multiple>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            ...
-                          </select>
-                        </div>
-                 </div>
-                 <div class="form-group">
-                    <label for="director">Director*</label>
-                        <div class="director_list">
-                          <select style="display:none"  name="" multiple>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            ...
-                          </select>
-                        </div>
-                 </div>
-                 <div class="form-group">
-                    <label for="award">Award*</label>
-                        <div class="award_list">
-                          <select style="display:none"  name="" multiple>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            ...
-                          </select>
-                        </div>
-                 </div>
-
-
-
-<script type="text/javascript">
-$('.genre_list').dropdown({
-
-
-
-
-});
-$('.cast_list').dropdown({});
-$('.director_list').dropdown({});
-$('.award_list').dropdown({});
-</script>
-
-
-
-
-
+                <div id="" class="form-group">
+                    
+                </div>
                
             </fieldset>
             <div class="form-group">
@@ -111,6 +42,64 @@ $('.award_list').dropdown({});
         </form>
     </div>
 {% block js%}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+
+    var ajaxResult=[];
+    $("#id_cast").keyup(function () {
+      var url = $("#moviesForm").attr("ajax_load_cast");
+      var text_input = $('#id_cast').val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'text_input': text_input
+        },
+        success: function (data) {
+          $("#add_cast2").html(data);
+;
+            // if (ajaxResult.indexOf(data) === -1) ajaxResult.push(data);
+        
+        }
+      });
+
+ 
+  
+    var e = document.getElementById("add_cast2");
+    var strcast_text = e.options[e.selectedIndex].text;
+    var strcast_id=e.options[e.selectedIndex].value
+
+    // if (ajaxResult.indexOf(strcast_id) === -1) ajaxResult.push(strcast_id);
+    if (ajaxResult.indexOf(strcast_text) === -1) ajaxResult.push(strcast_text);
+    console.log(ajaxResult);
+    $("#show_result").html(ajaxResult+",");
+    // var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+    // for( var i = 0; i < arr.length; i++){ 
+    //    if ( arr[i] === 5) {
+    //      arr.splice(i, 1); 
+    //    }
+
+
+    // }
+
+
+
+    });
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock js%}
 {% endblock content %}

@@ -14,6 +14,7 @@ from .views import (
 from .views import *
 from .views_update import *
 from .views_delete import *
+from django.views.generic import RedirectView
 urlpatterns = [
     path("",Index,name="movies-index"),
     path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
@@ -29,6 +30,10 @@ urlpatterns = [
     path("contact/",Contact_list,name="fmovies-contact"),
 
 
+  
+
+    path('ajax/load-cast/', load_cast, name='ajax_load_cast'),
+    path('', RedirectView.as_view(pattern_name='movies-index'),name='home'),
 
     path('award/<int:award_id>/delete/',Award_list_delete,name="award-list-delete"),
     path('cast/<int:cast_id>/delete/',Cast_list_delete,name="cast-list-delete"),

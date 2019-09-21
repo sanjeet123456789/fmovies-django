@@ -413,6 +413,7 @@ def Movies_create(request):
 	form=Create_Movies_form(
 			data=(request.POST or None),
 			files=(request.FILES or None),
+
 		)
 	url=request.path[1:-5]	
 	if form.is_valid():
@@ -436,6 +437,13 @@ def Movies_create(request):
 		"form_name":url
 	}   
 	return render(request,'movies_list/movies_list_create.html',context)
+def load_cast(request):
+    text_input = request.GET.get('text_input')
+    
+    casts = Cast_list.objects.filter(cast_name__contains=text_input).order_by('cast_name')
+    return render(request, 'movies_list/cast_dropdown_list_options.html', {'casts': casts})
+
+
 
 @login_required
 def Season_create(request):

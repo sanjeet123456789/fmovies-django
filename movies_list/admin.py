@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . forms import Create_Movies_form
+from . forms import Update_Movies_form
 from . models import (Award_list,
 	Cast_list,
 	Director_list,
@@ -38,6 +38,3 @@ admin.site.register(Episode_list)
 admin.site.register(Link_list)
 admin.site.register(Contact)
 
-# class SystemAdmin(admin.ModelAdmin):
-#     form = Create_Movies_form
-#     filter_horizontal = ('movies_list',) 
