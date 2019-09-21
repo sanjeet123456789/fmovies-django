@@ -97,6 +97,11 @@ class Create_Movies_form(forms.Form):
 	movies_type = forms.ModelChoiceField(queryset=Movies_type_list.objects.all())
 	movies_thumbnail=forms.ImageField(widget=forms.ClearableFileInput(attrs={'placeholder': 'thumbnail'}))
 	
+class Create_Link_form(forms.Form):
+	name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': '','maxlength':50}))
+	link = forms.CharField(widget=forms.Textarea(attrs={'placeholder': ''}))
+	link_type = forms.ModelChoiceField(queryset=Content_type_list.objects.all())
+	quality = forms.ModelChoiceField(queryset=Quality_list.objects.all())
 	
 	# class Meta:
 	# 	model=Movies_list
@@ -122,7 +127,7 @@ class Create_Episode_form(forms.ModelForm):
 		model=Episode_list
 		fields=['name','adult','filler','desc',]
 
-class Create_Link_form(forms.ModelForm):
+class Update_Link_form(forms.ModelForm):
 	class Meta:
 		model=Link_list
 		fields=['name','link','link_type','subtitle','quality']

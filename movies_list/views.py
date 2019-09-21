@@ -464,6 +464,10 @@ def load_language(request):
     text_input = request.GET.get('text_input')
     languages = Language_list.objects.filter(language_name__contains=text_input).order_by('language_name')
     return render(request, 'movies_list/language_dropdown_list_options.html', {'languages': languages})
+
+
+
+
 @login_required
 def Season_create(request):
 	form=Create_Season_form(
@@ -551,4 +555,9 @@ def Link_create(request):
 		"form":form,
 		"form_name":url
 	}   
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/link_list_create.html',context)
+
+def load_subtitle(request):
+    text_input = request.GET.get('text_input')
+    subtitles = Subtitle_list.objects.filter(subtitle_name__contains=text_input).order_by('subtitle_name')
+    return render(request, 'movies_list/subtitle_dropdown_list_options.html', {'subtitles': subtitles})

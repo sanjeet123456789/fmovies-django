@@ -38,6 +38,7 @@ urlpatterns = [
     path('ajax/load-writer/', load_writer, name='ajax_load_writer'),
     path('ajax/load-award/', load_award, name='ajax_load_award'),
     path('ajax/load-language/', load_language, name='ajax_load_language'),
+    path('ajax/load-subtitle/', load_subtitle, name='ajax_load_subtitle'),
     path('', RedirectView.as_view(pattern_name='movies-index'),name='home'),
 
     path('award/<int:award_id>/delete/',Award_list_delete,name="award-list-delete"),
