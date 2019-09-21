@@ -138,3 +138,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'email@gmail.com'
 EMAIL_HOST_PASSWORD = 'password'
+
+# dateime conversion
+USE_L10N = False                 # At first, disable USE_L10N, because it overrides the format
+DATETIME_FORMAT = 'Y-m-d'

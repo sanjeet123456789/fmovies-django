@@ -33,6 +33,11 @@ urlpatterns = [
   
 
     path('ajax/load-cast/', load_cast, name='ajax_load_cast'),
+    path('ajax/load-genre/', load_genre, name='ajax_load_genre'),
+    path('ajax/load-director/', load_director, name='ajax_load_director'),
+    path('ajax/load-writer/', load_writer, name='ajax_load_writer'),
+    path('ajax/load-award/', load_award, name='ajax_load_award'),
+    path('ajax/load-language/', load_language, name='ajax_load_language'),
     path('', RedirectView.as_view(pattern_name='movies-index'),name='home'),
 
     path('award/<int:award_id>/delete/',Award_list_delete,name="award-list-delete"),

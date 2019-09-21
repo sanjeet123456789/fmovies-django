@@ -439,12 +439,31 @@ def Movies_create(request):
 	return render(request,'movies_list/movies_list_create.html',context)
 def load_cast(request):
     text_input = request.GET.get('text_input')
-    
     casts = Cast_list.objects.filter(cast_name__contains=text_input).order_by('cast_name')
     return render(request, 'movies_list/cast_dropdown_list_options.html', {'casts': casts})
+def load_genre(request):
+    text_input = request.GET.get('text_input')
+    genres = Genre_list.objects.filter(genre_name__contains=text_input).order_by('genre_name')
+    return render(request, 'movies_list/genre_dropdown_list_options.html', {'genres': genres})
+
+def load_director(request):
+    text_input = request.GET.get('text_input')
+    directors = Director_list.objects.filter(director_name__contains=text_input).order_by('director_name')
+    return render(request, 'movies_list/director_dropdown_list_options.html', {'directors': directors})
 
 
-
+def load_writer(request):
+    text_input = request.GET.get('text_input')
+    writers = Writer_list.objects.filter(writer_name__contains=text_input).order_by('writer_name')
+    return render(request, 'movies_list/writer_dropdown_list_options.html', {'writers': writers})
+def load_award(request):
+    text_input = request.GET.get('text_input')
+    awards = Award_list.objects.filter(award_name__contains=text_input).order_by('award_name')
+    return render(request, 'movies_list/award_dropdown_list_options.html', {'awards': awards})
+def load_language(request):
+    text_input = request.GET.get('text_input')
+    languages = Language_list.objects.filter(language_name__contains=text_input).order_by('language_name')
+    return render(request, 'movies_list/language_dropdown_list_options.html', {'languages': languages})
 @login_required
 def Season_create(request):
 	form=Create_Season_form(

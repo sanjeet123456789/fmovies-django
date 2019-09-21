@@ -43,7 +43,7 @@
         <div class="movies_list row" style="justify-content:center;">
             {%for movies in cast_details%}{% if not forloop.first %} {% endif %}
 
-            <div class="card mx-2 my-2" style="width: 14rem;">
+            <div class="card mx-2 my-2 wrapper" style="width: 14rem;">
                 
                 <img src="../../media/{{movies.movies_thumbnail}}" height="150" width="75" class="card-img-top" alt="...">
                 <div class="bottom-right">{{movies.Quality.quality_name}}</div>
@@ -53,6 +53,12 @@
                     <a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><p class="card-title m-1">{{movies.movies_user_id.username}}</p></a>
                     <p class="card-text" style="height:3rem; overflow:hidden;">{{movies.story_line}}</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <div class="tooltip">
+                        <div class="tooltips_movies_name">{{movies.name}} [{{movies.Quality.quality_name}}]</div>
+
+
+
+                    </div>
                 </div>
             </div>
             {%endfor%}
@@ -61,7 +67,81 @@
     </div>
 
 
+<style type="text/css">
+    
+.wrapper .tooltip {
+  background: #1496bb;
+  bottom: 100%;
+  color: #fff;
+  display: block;
+  left: -25px;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 20px;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
 
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper .tooltip:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}  
+
+/* CSS Triangles - see Trevor's post */
+.wrapper .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid #1496bb 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+  
+.wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .wrapper .tooltip {
+  display: none;
+}
+
+.lte8 .wrapper:hover .tooltip {
+  display: block;
+}
+</style>
 
 
 

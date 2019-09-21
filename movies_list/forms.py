@@ -96,7 +96,7 @@ class Create_Movies_form(forms.Form):
 	quality = forms.ModelChoiceField(queryset=Quality_list.objects.all())
 	movies_type = forms.ModelChoiceField(queryset=Movies_type_list.objects.all())
 	movies_thumbnail=forms.ImageField(widget=forms.ClearableFileInput(attrs={'placeholder': 'thumbnail'}))
-
+	
 	
 	# class Meta:
 	# 	model=Movies_list

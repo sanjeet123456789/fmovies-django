@@ -1,0 +1,4 @@
+<!-- <option value="">---------</option> -->
+{% for award in awards %}
+<option value="{{ award.award_id }}">{{ award.award_name }}</option>
+{% endfor %}
