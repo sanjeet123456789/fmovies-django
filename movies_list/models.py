@@ -156,7 +156,7 @@ class Subtitle_list(models.Model):
 	subtitle_name=models.CharField(max_length=40)
 	subtitle_short_code=models.CharField(max_length=5)
 	def __str__(self):
-		return f'{self.subtitle_name} subtitle_name'
+		return f'{self.subtitle_name}'
 	class Meta:
 		verbose_name_plural="subtitle name"
 

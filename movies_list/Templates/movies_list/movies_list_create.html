@@ -22,33 +22,37 @@
 
                    <label for="id_cast" class="col-form-label  requiredField" id="id_cast_ajax" ajax_load_cast="{% url 'ajax_load_cast' %}">Cast<span class="asteriskField">*</span> </label> 
                    <div id="show_result"></div>
-                   <div class=""> <input type="text" name="cast" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_cast" autocomplete="off"> 
+                   <div class="">
+                    <input type="text" name="cast" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_cast" autocomplete="off" onfocusout="focusoutcast()"> 
                     <select id="add_cast"  multiple style="width:100%;" ></select>
                     </div>
 
 
                     <label for="id_genre" class="col-form-label  requiredField" id="id_genre_ajax" ajax_load_genre="{% url 'ajax_load_genre' %}">Genre<span class="asteriskField">*</span> </label> 
                    <div id="show_result_genre"></div>
-                   <div class=""> <input type="text" name="genre" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_genre" autocomplete="off"> 
+                   <div class=""> 
+                    <input type="text" name="genre" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_genre" autocomplete="off" onfocusout="focusoutgenre()"> 
                     <select id="add_genre"  multiple style="width:100%;" ></select>
                     </div>
 
                     <label for="id_director" class="col-form-label  requiredField" id="id_director_ajax" ajax_load_director="{% url 'ajax_load_director' %}">Director<span class="asteriskField">*</span> </label> 
                    <div id="show_result_director"></div>
-                   <div class=""> <input type="text" name="director" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_director" autocomplete="off"> 
+                   <div class=""> <input type="text" name="director" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_director" autocomplete="off" onfocusout="focusoutdirector()"> 
                     <select id="add_director"  multiple style="width:100%;" ></select>
                     </div>
 
 
                     <label for="id_writer" class="col-form-label  requiredField" id="id_writer_ajax" ajax_load_writer="{% url 'ajax_load_writer' %}">Writer<span class="asteriskField">*</span> </label> 
                    <div id="show_result_writer"></div>
-                   <div class=""> <input type="text" name="writer" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_writer" autocomplete="off" > 
+                   <div class="">
+                    <input type="text" name="writer" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_writer" autocomplete="off" onfocusout="focusoutwriter()" > 
                     <select id="add_writer"  multiple style="width:100%;" ></select>
                     </div>
 
                  <label for="id_award" class="col-form-label  requiredField" id="id_award_ajax" ajax_load_award="{% url 'ajax_load_award' %}">Award<span class="asteriskField">*</span> </label> 
                    <div id="show_result_award"></div>
-                   <div class=""> <input type="text" name="award" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_award" autocomplete="off" > 
+                   <div class="">
+                    <input type="text" name="award" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_award" autocomplete="off" onfocusout="focusoutaward()"> 
                     <select id="add_award"  multiple style="width:100%;" ></select>
                     </div>
 
@@ -56,7 +60,8 @@
 
                 <label for="id_language" class="col-form-label  requiredField" id="id_language_ajax" ajax_load_language="{% url 'ajax_load_language' %}">Language<span class="asteriskField">*</span> </label> 
                    <div id="show_result_language"></div>
-                   <div class=""> <input type="text" name="language" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_language" autocomplete="off" > 
+                   <div class="">
+                    <input type="text" name="language" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_language" autocomplete="off" onfocusout="focusoutlanguage()"> 
                     <select id="add_language"  multiple style="width:100%;" ></select>
 
 
@@ -115,7 +120,7 @@
         function show_result_function(){
             $("#show_result").empty();
             for( var i = 0; i < castResult_id.length; i++){   
-            $("#show_result").append("<div class='selected_result'>"+castResult[i]+"<span class='cast_show_result' id="+castResult_id[i]+" value="+castResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result").append("<div class='selected_result'><input hidden value='"+castResult_id[i]+"' name='cast_show_result"+i+"'/>"+castResult[i]+"<span class='cast_show_result' id="+castResult_id[i]+" value="+castResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 
@@ -177,7 +182,7 @@
         function show_result_function(){
             $("#show_result_genre").empty();
             for( var i = 0; i < genreResult_id.length; i++){   
-            $("#show_result_genre").append("<div class='selected_result'>"+genreResult[i]+"<span class='genre_show_result' id="+genreResult_id[i]+" value="+genreResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result_genre").append("<div class='selected_result'><input hidden value='"+genreResult_id[i]+"' name='genre_show_result"+i+"'/>"+genreResult[i]+"<span class='genre_show_result' id="+genreResult_id[i]+" value="+genreResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 
@@ -238,7 +243,7 @@
         function show_result_function(){
             $("#show_result_director").empty();
             for( var i = 0; i < directorResult_id.length; i++){   
-            $("#show_result_director").append("<div class='selected_result'>"+directorResult[i]+"<span class='director_show_result' id="+directorResult_id[i]+" value="+directorResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result_director").append("<div class='selected_result'><input hidden value='"+directorResult_id[i]+"' name='director_show_result"+i+"'/>"+directorResult[i]+"<span class='director_show_result' id="+directorResult_id[i]+" value="+directorResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 
@@ -301,7 +306,7 @@
         function show_result_function(){
             $("#show_result_writer").empty();
             for( var i = 0; i < writerResult_id.length; i++){   
-            $("#show_result_writer").append("<div class='selected_result'>"+writerResult[i]+"<span class='writer_show_result' id="+writerResult_id[i]+" value="+writerResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result_writer").append("<div class='selected_result'><input hidden value='"+writerResult_id[i]+"' name='writer_show_result"+i+"'/>"+writerResult[i]+"<span class='writer_show_result' id="+writerResult_id[i]+" value="+writerResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 
@@ -363,7 +368,7 @@
         function show_result_function(){
             $("#show_result_award").empty();
             for( var i = 0; i < awardResult_id.length; i++){   
-            $("#show_result_award").append("<div class='selected_result'>"+awardResult[i]+"<span class='award_show_result' id="+awardResult_id[i]+" value="+awardResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result_award").append("<div class='selected_result'><input hidden value='"+awardResult_id[i]+"' name='award_show_result"+i+"'/>"+awardResult[i]+"<span class='award_show_result' id="+awardResult_id[i]+" value="+awardResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 
@@ -424,7 +429,7 @@
         function show_result_function(){
             $("#show_result_language").empty();
             for( var i = 0; i < languageResult_id.length; i++){   
-            $("#show_result_language").append("<div class='selected_result'>"+languageResult[i]+"<span class='language_show_result' id="+languageResult_id[i]+" value="+languageResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            $("#show_result_language").append("<div class='selected_result'><input hidden value='"+languageResult_id[i]+"' name='language_show_result"+i+"'/>"+languageResult[i]+"<span class='language_show_result' id="+languageResult_id[i]+" value="+languageResult_id[i]+" style='cursor:pointer;'>*</span></div>");
             sceSelect();
             }
 

@@ -417,14 +417,66 @@ def Movies_create(request):
 		)
 	url=request.path[1:-5]	
 	if form.is_valid():
-		
 		if request.user.is_active:
-			obj = form.save(commit=False)
-			obj.movies_user_id = request.user
-			obj.save()
-			form.save_m2m()
-			r=Movies_list.objects.aggregate(Max('movies_id'))
-			x=[*r.values()][0]	
+			r=Movies_list.objects.create(
+				name=request.POST["name"],
+				country_id=request.POST["country"],
+				story_line=request.POST["story_line"],
+				cost=request.POST["cost"],
+				release_date=request.POST["release_date"],
+				imdb_rating=request.POST["imdb_rating"],
+				imdb_link=request.POST["imdb_link"],
+				trailer_link=request.POST["trailer_link"],
+				Quality_id=request.POST["quality"],
+				movies_type_id=request.POST["movies_type"],
+				movies_thumbnail=request.FILES["movies_thumbnail"],
+				movies_user_id_id=request.user.id,
+				)
+			s='cast_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.cast.add(username)
+			s='genre_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.genre.add(username)
+			s='director_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.director.add(username)
+			s='writer_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.writer.add(username)
+			s='award_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.awards.add(username)
+			s='language_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.language.add(username)
+			r.save()
+			rp=Movies_list.objects.aggregate(Max('movies_id'))
+			x=[*rp.values()][0]	
 			messages.success(request, f'Movies has been created!')
 			return redirect('movies-detail',x)
 			
@@ -539,13 +591,24 @@ def Link_create(request):
 	
 	if form.is_valid():
 		if request.user.is_active:
-			x=Episode_list.objects.filter(episode_id=1)
-			x=x[0]
-			obj = form.save(commit=False)
-			obj.link_user_id = request.user
-			obj.link_episode_season_id=x
-			obj.save()
-			form.save_m2m()
+			# x=Episode_list.objects.filter(episode_id=1)
+			# x=x[0]
+		
+
+			r=Link_list.objects.create(name=request.POST["name"],
+				link=request.POST["link"],
+				quality_id=request.POST["quality"],
+				link_type_id=request.POST["link_type"],
+				link_user_id_id=request.user.id,
+				link_episode_season_id_id=1)
+			s='subtitle_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					r.subtitle.add(username)
+			r.save()
 			messages.success(request, f'Season has been created!')
 		else:
 			messages.warning(request, f'Please Login to create movies!')
@@ -561,3 +624,25 @@ def load_subtitle(request):
     text_input = request.GET.get('text_input')
     subtitles = Subtitle_list.objects.filter(subtitle_name__contains=text_input).order_by('subtitle_name')
     return render(request, 'movies_list/subtitle_dropdown_list_options.html', {'subtitles': subtitles})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
