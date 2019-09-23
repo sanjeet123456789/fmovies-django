@@ -1,0 +1,5 @@
+django
+pillow
+djnago-better-filter-widget
+dal-admin-filter
+django-crispy-forms
