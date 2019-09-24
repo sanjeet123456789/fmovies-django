@@ -251,8 +251,8 @@ class Link_list(models.Model):
 	link_created_at=models.DateTimeField(default=timezone.now)
 	quality=models.ForeignKey(Quality_list,on_delete=models.PROTECT)
 
-	def __str__(self):
-		return f'{self.name}'
+	# def __str__(self):
+	# 	return f'{self.name}'
 	class Meta:
 		verbose_name_plural='Link'
 

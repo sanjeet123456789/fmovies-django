@@ -65,22 +65,35 @@ class Create_Movies_type_list_form(forms.ModelForm):
 		fields=['movies_type_name']
 
 
-class Update_Movies_form(forms.ModelForm):
-	class Meta:
-		model=Movies_list
-		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type','movies_thumbnail']
-		# def __init__(self, *args, **kwargs):
-		# 	forms.ModelForm.__init__(self, *args, **kwargs)
-		# 	self.fields['genre'].queryset = genre.avail.none()
-		widgets = {
-			'cast': forms.CheckboxSelectMultiple,
-			'genre':forms.CheckboxSelectMultiple,
-			'awards':forms.CheckboxSelectMultiple,
-			'director':forms.CheckboxSelectMultiple,
-			'writer':forms.CheckboxSelectMultiple,
-			'language':forms.CheckboxSelectMultiple,
+# class Update_Movies_form(forms.ModelForm):
+# 	class Meta:
+# 		model=Movies_list
+# 		fields=['name','genre','cast','director','writer','awards','country','story_line','cost','release_date','language','imdb_rating','imdb_link','trailer_link','tags','Quality','movies_type','movies_thumbnail']
+# 		# def __init__(self, *args, **kwargs):
+# 		# 	forms.ModelForm.__init__(self, *args, **kwargs)
+# 		# 	self.fields['genre'].queryset = genre.avail.none()
+# 		widgets = {
+# 			'cast': forms.CheckboxSelectMultiple,
+# 			'genre':forms.CheckboxSelectMultiple,
+# 			'awards':forms.CheckboxSelectMultiple,
+# 			'director':forms.CheckboxSelectMultiple,
+# 			'writer':forms.CheckboxSelectMultiple,
+# 			'language':forms.CheckboxSelectMultiple,
 
-		}
+# 		}
+
+class Update_Movies_form(forms.Form):
+	name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Avenger','maxlength':50}))
+	country = forms.ModelChoiceField(queryset=Country_list.objects.all())
+	story_line = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Description'}))
+	cost = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': '$','maxlength':11}))
+	release_date=forms.DateField(widget=forms.DateInput(attrs={'placeholder': 'Release date (yyyy-mm-dd)'}))
+	imdb_rating = forms.FloatField(widget=forms.NumberInput(attrs={'placeholder': 'IMDB rating','maxlength':11}))
+	imdb_link = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'IMDB link'}))
+	trailer_link = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Trailer link'}))
+	quality = forms.ModelChoiceField(queryset=Quality_list.objects.all())
+	movies_type = forms.ModelChoiceField(queryset=Movies_type_list.objects.all())
+	movies_thumbnail=forms.ImageField(widget=forms.ClearableFileInput(attrs={'placeholder': 'thumbnail'}))
 		
 
 		
@@ -127,10 +140,16 @@ class Create_Episode_form(forms.ModelForm):
 		model=Episode_list
 		fields=['name','adult','filler','desc',]
 
-class Update_Link_form(forms.ModelForm):
-	class Meta:
-		model=Link_list
-		fields=['name','link','link_type','subtitle','quality']
+# class Update_Link_form(forms.ModelForm):
+# 	class Meta:
+# 		model=Link_list
+# 		fields=['name','link','link_type','subtitle','quality']
+
+class Update_Link_form(forms.Form):
+	name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': ''}))
+	link = forms.CharField(widget=forms.Textarea(attrs={'placeholder': ''}))
+	link_type = forms.ModelChoiceField(queryset=Content_type_list.objects.all())
+	quality = forms.ModelChoiceField(queryset=Quality_list.objects.all())
 
 class Create_Contact_form(forms.ModelForm):
 	class Meta:

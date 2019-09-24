@@ -3,7 +3,7 @@
 {% block content %}
     <div class="content-section">
 
-        <form method="POST" id="moviesForm"  novalidate enctype="multipart/form-data" >
+        <form method="POST" id="moviesForm" action="{% url 'movies-update' movies_id %}" novalidate enctype="multipart/form-data" >
             {% csrf_token %}
             <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{form_name|capfirst}}</legend>
@@ -80,6 +80,8 @@
             </div>
         </form>
     </div>
+    
+   
 {% block js%}
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
@@ -87,6 +89,40 @@
     document.getElementById("add_cast").style.display = "none";
     var castResult=[];
     var castResult_id=[];
+    {% for cast in movies_detail.0.cast.all %}
+      castResult.push("{{cast}}"); 
+      castResult_id.push("{{cast.cast_id}}");
+    {%endfor%}
+
+show_cast_result_function();
+function show_cast_result_function(){
+    $("#show_result").empty();
+    for( var i = 0; i < castResult_id.length; i++){   
+    $("#show_result").append("<div class='selected_result'><input hidden value='"+castResult_id[i]+"' name='cast_show_result"+i+"'/>"+castResult[i]+"<span class='cast_show_result' id="+castResult_id[i]+" value="+castResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+    sceSelect_cast();
+    }
+
+}
+function sceSelect_cast() {
+    console.log(this.id);
+     for( var i = 0; i < castResult_id.length; i++){ 
+       if ( castResult_id[i] === this.id) {
+         castResult_id.splice(i, 1);
+         castResult.splice(i, 1);
+         show_cast_result_function();
+       }
+    }
+    var spans = document.getElementsByClassName('cast_show_result');
+            for (var i = 0, len = spans.length; i < len; i++) {
+                spans[i].onclick = sceSelect_cast;
+            }
+}
+
+
+
+
+
+
     $("#id_cast").keyup(function () {
       var url = $("#id_cast_ajax").attr("ajax_load_cast");
       var text_input = $('#id_cast').val();
@@ -99,50 +135,27 @@
                 success: function (data) {
                   $("#add_cast").html(data);            
                 }
-              });
+          });
       } 
-    document.getElementById("add_cast").style.display = "block";
-    $("#add_cast").on('change', function() {
+      document.getElementById("add_cast").style.display = "block";
+      $("#add_cast").on('change', function() {
 
-    var selectedItems = $(this).find("option:selected");
-    if (selectedItems.length >= 1)  {
-    var e = document.getElementById("add_cast");
-    if(e!==""){
-         var strcast_text = e.options[e.selectedIndex].text;
-        var strcast_id=e.options[e.selectedIndex].value
+      var selectedItems = $(this).find("option:selected");
+        if (selectedItems.length >= 1)  {
+        var e = document.getElementById("add_cast");
+            if(e!==""){
+                 var strcast_text = e.options[e.selectedIndex].text;
+                var strcast_id=e.options[e.selectedIndex].value
 
-        if (castResult_id.indexOf(strcast_id) === -1) castResult_id.push(strcast_id);
-        if (castResult.indexOf(strcast_text) === -1) castResult.push(strcast_text);
-        console.log(castResult,castResult_id); 
+                if (castResult_id.indexOf(strcast_id) === -1) castResult_id.push(strcast_id);
+                if (castResult.indexOf(strcast_text) === -1) castResult.push(strcast_text);
+                console.log(castResult,castResult_id); 
 
-        show_result_function();
-
-        function show_result_function(){
-            $("#show_result").empty();
-            for( var i = 0; i < castResult_id.length; i++){   
-            $("#show_result").append("<div class='selected_result'><input hidden value='"+castResult_id[i]+"' name='cast_show_result"+i+"'/>"+castResult[i]+"<span class='cast_show_result' id="+castResult_id[i]+" value="+castResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
-
-        }
-        
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < castResult_id.length; i++){ 
-               if ( castResult_id[i] === this.id) {
-                 castResult_id.splice(i, 1);
-                 castResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('cast_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
-    }       
-    }  
-    });  
+                show_cast_result_function();    
+             
+            }       
+        }  
+      });  
     });
 
     //end of cast
@@ -150,6 +163,34 @@
     document.getElementById("add_genre").style.display = "none";
     var genreResult=[];
     var genreResult_id=[];
+    {% for genre in movies_detail.0.genre.all %}
+      genreResult.push("{{genre}}"); 
+      genreResult_id.push("{{genre.genre_id}}");
+    {%endfor%}
+    show_genre_result_function();
+    function show_genre_result_function(){
+            $("#show_result_genre").empty();
+            for( var i = 0; i < genreResult_id.length; i++){   
+            $("#show_result_genre").append("<div class='selected_result'><input hidden value='"+genreResult_id[i]+"' name='genre_show_result"+i+"'/>"+genreResult[i]+"<span class='genre_show_result' id="+genreResult_id[i]+" value="+genreResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_genre();
+            }
+
+        }
+        
+        function sceSelect_genre() {
+            console.log(this.id);
+             for( var i = 0; i < genreResult_id.length; i++){ 
+               if ( genreResult_id[i] === this.id) {
+                 genreResult_id.splice(i, 1);
+                 genreResult.splice(i, 1);
+                 show_genre_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('genre_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_genre;
+                    }
+        }
     $("#id_genre").keyup(function () {
       var url = $("#id_genre_ajax").attr("ajax_load_genre");
       var text_input = $('#id_genre').val();
@@ -170,38 +211,18 @@
     if (selectedItems.length >= 1)  {
     var e = document.getElementById("add_genre");
     if(e!==""){
-         var strgenre_text = e.options[e.selectedIndex].text;
+        var strgenre_text = e.options[e.selectedIndex].text;
         var strgenre_id=e.options[e.selectedIndex].value
 
         if (genreResult_id.indexOf(strgenre_id) === -1) genreResult_id.push(strgenre_id);
         if (genreResult.indexOf(strgenre_text) === -1) genreResult.push(strgenre_text);
         console.log(genreResult,genreResult_id); 
 
-        show_result_function();
+        show_genre_result_function();
 
-        function show_result_function(){
-            $("#show_result_genre").empty();
-            for( var i = 0; i < genreResult_id.length; i++){   
-            $("#show_result_genre").append("<div class='selected_result'><input hidden value='"+genreResult_id[i]+"' name='genre_show_result"+i+"'/>"+genreResult[i]+"<span class='genre_show_result' id="+genreResult_id[i]+" value="+genreResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
 
-        }
         
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < genreResult_id.length; i++){ 
-               if ( genreResult_id[i] === this.id) {
-                 genreResult_id.splice(i, 1);
-                 genreResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('genre_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
+    
     }       
     }  
     });  
@@ -211,6 +232,34 @@
     document.getElementById("add_director").style.display = "none";
     var directorResult=[];
     var directorResult_id=[];
+    {% for director in movies_detail.0.director.all %}
+      directorResult.push("{{director}}"); 
+      directorResult_id.push("{{director.director_id}}");
+    {%endfor%}
+      show_director_result_function();
+      function show_director_result_function(){
+            $("#show_result_director").empty();
+            for( var i = 0; i < directorResult_id.length; i++){   
+            $("#show_result_director").append("<div class='selected_result'><input hidden value='"+directorResult_id[i]+"' name='director_show_result"+i+"'/>"+directorResult[i]+"<span class='director_show_result' id="+directorResult_id[i]+" value="+directorResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_director();
+            }
+
+        }
+        
+        function sceSelect_director() {
+            console.log(this.id);
+             for( var i = 0; i < directorResult_id.length; i++){ 
+               if ( directorResult_id[i] === this.id) {
+                 directorResult_id.splice(i, 1);
+                 directorResult.splice(i, 1);
+                 show_director_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('director_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_director;
+                    }
+        }
     $("#id_director").keyup(function () {
       var url = $("#id_director_ajax").attr("ajax_load_director");
       var text_input = $('#id_director').val();
@@ -238,31 +287,9 @@
         if (directorResult.indexOf(strdirector_text) === -1) directorResult.push(strdirector_text);
         console.log(directorResult,directorResult_id); 
 
-        show_result_function();
+        show_director_result_function();
 
-        function show_result_function(){
-            $("#show_result_director").empty();
-            for( var i = 0; i < directorResult_id.length; i++){   
-            $("#show_result_director").append("<div class='selected_result'><input hidden value='"+directorResult_id[i]+"' name='director_show_result"+i+"'/>"+directorResult[i]+"<span class='director_show_result' id="+directorResult_id[i]+" value="+directorResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
-
-        }
-        
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < directorResult_id.length; i++){ 
-               if ( directorResult_id[i] === this.id) {
-                 directorResult_id.splice(i, 1);
-                 directorResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('director_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
+      
     }       
     }  
     });  
@@ -274,6 +301,35 @@
     document.getElementById("add_writer").style.display = "none";
     var writerResult=[];
     var writerResult_id=[];
+    {% for writer in movies_detail.0.writer.all %}
+      writerResult.push("{{writer}}"); 
+      writerResult_id.push("{{writer.director_id}}");
+    {%endfor%}
+    show_writer_result_function();
+    function show_writer_result_function(){
+            $("#show_result_writer").empty();
+            for( var i = 0; i < writerResult_id.length; i++){   
+            $("#show_result_writer").append("<div class='selected_result'><input hidden value='"+writerResult_id[i]+"' name='writer_show_result"+i+"'/>"+writerResult[i]+"<span class='writer_show_result' id="+writerResult_id[i]+" value="+writerResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_writer();
+            }
+
+        }
+        
+        function sceSelect_writer() {
+            console.log(this.id);
+             for( var i = 0; i < writerResult_id.length; i++){ 
+               if ( writerResult_id[i] === this.id) {
+                 writerResult_id.splice(i, 1);
+                 writerResult.splice(i, 1);
+                 show_writer_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('writer_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_writer;
+                    }
+        }
+
     $("#id_writer").keyup(function () {
       var url = $("#id_writer_ajax").attr("ajax_load_writer");
       var text_input = $('#id_writer').val();
@@ -301,31 +357,9 @@
         if (writerResult.indexOf(strwriter_text) === -1) writerResult.push(strwriter_text);
         console.log(writerResult,writerResult_id); 
 
-        show_result_function();
+        show_writer_result_function();
 
-        function show_result_function(){
-            $("#show_result_writer").empty();
-            for( var i = 0; i < writerResult_id.length; i++){   
-            $("#show_result_writer").append("<div class='selected_result'><input hidden value='"+writerResult_id[i]+"' name='writer_show_result"+i+"'/>"+writerResult[i]+"<span class='writer_show_result' id="+writerResult_id[i]+" value="+writerResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
-
-        }
         
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < writerResult_id.length; i++){ 
-               if ( writerResult_id[i] === this.id) {
-                 writerResult_id.splice(i, 1);
-                 writerResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('writer_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
     }       
     }  
     });  
@@ -336,6 +370,35 @@
     document.getElementById("add_award").style.display = "none";
     var awardResult=[];
     var awardResult_id=[];
+    {% for award in movies_detail.0.awards.all %}
+      awardResult.push("{{award}}"); 
+      awardResult_id.push("{{award.award_id}}");
+    {%endfor%}
+          show_award_result_function();
+            function show_award_result_function(){
+            $("#show_result_award").empty();
+            for( var i = 0; i < awardResult_id.length; i++){   
+            $("#show_result_award").append("<div class='selected_result'><input hidden value='"+awardResult_id[i]+"' name='award_show_result"+i+"'/>"+awardResult[i]+"<span class='award_show_result' id="+awardResult_id[i]+" value="+awardResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_award();
+            }
+
+        }
+        
+        function sceSelect_award() {
+            console.log(this.id);
+             for( var i = 0; i < awardResult_id.length; i++){ 
+               if ( awardResult_id[i] === this.id) {
+                 awardResult_id.splice(i, 1);
+                 awardResult.splice(i, 1);
+                 show_award_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('award_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_award;
+                    }
+        }
+
     $("#id_award").keyup(function () {
       var url = $("#id_award_ajax").attr("ajax_load_award");
       var text_input = $('#id_award').val();
@@ -363,31 +426,9 @@
         if (awardResult.indexOf(straward_text) === -1) awardResult.push(straward_text);
         console.log(awardResult,awardResult_id); 
 
-        show_result_function();
+        show_award_result_function();
 
-        function show_result_function(){
-            $("#show_result_award").empty();
-            for( var i = 0; i < awardResult_id.length; i++){   
-            $("#show_result_award").append("<div class='selected_result'><input hidden value='"+awardResult_id[i]+"' name='award_show_result"+i+"'/>"+awardResult[i]+"<span class='award_show_result' id="+awardResult_id[i]+" value="+awardResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
 
-        }
-        
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < awardResult_id.length; i++){ 
-               if ( awardResult_id[i] === this.id) {
-                 awardResult_id.splice(i, 1);
-                 awardResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('award_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
     }       
     }  
     });  
@@ -397,6 +438,36 @@
     document.getElementById("add_language").style.display = "none";
     var languageResult=[];
     var languageResult_id=[];
+    {% for language in movies_detail.0.language.all %}
+      languageResult.push("{{language}}"); 
+      languageResult_id.push("{{language.language_id}}");
+    {%endfor%}
+
+
+    show_language_result_function();
+    function show_language_result_function(){
+            $("#show_result_language").empty();
+            for( var i = 0; i < languageResult_id.length; i++){   
+            $("#show_result_language").append("<div class='selected_result'><input hidden value='"+languageResult_id[i]+"' name='language_show_result"+i+"'/>"+languageResult[i]+"<span class='language_show_result' id="+languageResult_id[i]+" value="+languageResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_language();
+            }
+
+        }
+        
+        function sceSelect_language() {
+            console.log(this.id);
+             for( var i = 0; i < languageResult_id.length; i++){ 
+               if ( languageResult_id[i] === this.id) {
+                 languageResult_id.splice(i, 1);
+                 languageResult.splice(i, 1);
+                 show_language_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('language_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_language;
+                    }
+        }
     $("#id_language").keyup(function () {
       var url = $("#id_language_ajax").attr("ajax_load_language");
       var text_input = $('#id_language').val();
@@ -424,31 +495,9 @@
         if (languageResult.indexOf(strlanguage_text) === -1) languageResult.push(strlanguage_text);
         console.log(languageResult,languageResult_id); 
 
-        show_result_function();
+        show_language_result_function();
 
-        function show_result_function(){
-            $("#show_result_language").empty();
-            for( var i = 0; i < languageResult_id.length; i++){   
-            $("#show_result_language").append("<div class='selected_result'><input hidden value='"+languageResult_id[i]+"' name='language_show_result"+i+"'/>"+languageResult[i]+"<span class='language_show_result' id="+languageResult_id[i]+" value="+languageResult_id[i]+" style='cursor:pointer;'>*</span></div>");
-            sceSelect();
-            }
-
-        }
-        
-        function sceSelect() {
-            console.log(this.id);
-             for( var i = 0; i < languageResult_id.length; i++){ 
-               if ( languageResult_id[i] === this.id) {
-                 languageResult_id.splice(i, 1);
-                 languageResult.splice(i, 1);
-                 show_result_function();
-               }
-            }
-            var spans = document.getElementsByClassName('language_show_result');
-                    for (var i = 0, len = spans.length; i < len; i++) {
-                        spans[i].onclick = sceSelect;
-                    }
-        }
+  
     }       
     }  
     });  

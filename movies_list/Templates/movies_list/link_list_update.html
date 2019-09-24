@@ -1,0 +1,123 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" id="moviesForm" action="{% url 'link-update' link_id %}" novalidate enctype="multipart/form-data" >
+            {% csrf_token %}
+            <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{form_name|capfirst}}</legend>
+               <div class="form-group">
+                    {{form.name|as_crispy_field}}
+                    {{form.link|as_crispy_field}}
+                    {{form.link_type|as_crispy_field}}
+                   {{form.quality|as_crispy_field}}
+
+                   <label for="id_subtitle" class="col-form-label  requiredField" id="id_subtitle_ajax" ajax_load_subtitle="{% url 'ajax_load_subtitle' %}">Subtitle<span class="asteriskField">*</span> </label> 
+                   <div id="show_result_subtitle"></div>
+                   <div class=""> <input  type="text" name="subtitle" value="" maxlength="50" class="textinput textInput form-control" required="" id="id_subtitle" autocomplete="off" > 
+                    <select id="add_subtitle"  multiple style="width:100%;" onfocusout="focusoutsubtitle()"></select>
+                   </div>
+                </div>
+                <div id="" class="form-group">
+                    
+                </div>
+               
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+{% block js%}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    function focusoutsubtitle(){
+      document.getElementById("add_subtitle").style.display = "none";
+    }
+    
+    
+
+    document.getElementById("add_subtitle").style.display = "none";
+    var subtitleResult=[];
+    var subtitleResult_id=[];
+
+    {% for subtitle in link_detail.0.subtitle.all %}
+      subtitleResult.push("{{subtitle}}"); 
+      subtitleResult_id.push("{{subtitle.subtitle_id}}");
+    {%endfor%}
+    show_subtitle_result_function();
+    function show_subtitle_result_function(){
+            $("#show_result_subtitle").empty();
+            for( var i = 0; i < subtitleResult_id.length; i++){   
+            $("#show_result_subtitle").append("<div class='selected_result'><input hidden value='"+subtitleResult_id[i]+"' name='subtitle_show_result"+i+"'/>"+subtitleResult[i]+"</span><span class='subtitle_show_result'  id="+subtitleResult_id[i]+" value="+subtitleResult_id[i]+" style='cursor:pointer;'>*</span></div>");
+            sceSelect_subtitle();
+            $("#subtitle_show_resultdd").html(subtitleResult[i]); 
+            }
+
+           
+            
+        }
+        
+        function sceSelect_subtitle() {
+            console.log(this.id);
+             for( var i = 0; i < subtitleResult_id.length; i++){ 
+               if ( subtitleResult_id[i] === this.id) {
+                 subtitleResult_id.splice(i, 1);
+                 subtitleResult.splice(i, 1);
+                 show_subtitle_result_function();
+               }
+            }
+            var spans = document.getElementsByClassName('subtitle_show_result');
+                    for (var i = 0, len = spans.length; i < len; i++) {
+                        spans[i].onclick = sceSelect_subtitle;
+                    }
+        }
+
+    $("#id_subtitle").keyup(function () {
+      var url = $("#id_subtitle_ajax").attr("ajax_load_subtitle");
+      var text_input = $('#id_subtitle').val();
+      if (text_input!==""){
+         $.ajax({
+                url: url,
+                data: {
+                  'text_input': text_input
+                },
+                success: function (data) {
+                  $("#add_subtitle").html(data);            
+                }
+              });
+      } 
+    document.getElementById("add_subtitle").style.display = "block";
+    $("#add_subtitle").on('change', function() {
+    var selectedItems = $(this).find("option:selected");
+    if (selectedItems.length >= 1)  {
+    var e = document.getElementById("add_subtitle");
+    if(e!==""){
+         var strsubtitle_text = e.options[e.selectedIndex].text;
+        var strsubtitle_id=e.options[e.selectedIndex].value
+
+        if (subtitleResult_id.indexOf(strsubtitle_id) === -1) subtitleResult_id.push(strsubtitle_id);
+        if (subtitleResult.indexOf(strsubtitle_text) === -1) subtitleResult.push(strsubtitle_text);
+        console.log(subtitleResult,subtitleResult_id); 
+
+        show_subtitle_result_function();
+
+        
+    }       
+    } 
+
+
+
+
+
+
+
+
+
+    });  
+    });
+
+</script>
+
+{% endblock js%}
+{% endblock content %}

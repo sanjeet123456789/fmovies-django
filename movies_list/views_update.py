@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Max
+from  simplejson import *
 from .forms import *
 from .models import *
 
@@ -302,13 +303,91 @@ def Movies_update(request,movies_id):
 	form=Update_Movies_form(
 			data=(request.POST or None),
 			files=(request.FILES or None),
-			instance=obj
+			# instance=obj
 		)
+	form.fields["name"].initial=obj.name
+	form.fields["country"].initial=obj.country
+	form.fields["story_line"].initial = obj.story_line
+	form.fields["cost"].initial = obj.cost
+	form.fields["release_date"].initial = obj.release_date
+	form.fields["imdb_rating"].initial = obj.imdb_rating
+	form.fields["imdb_link"].initial = obj.imdb_link
+	form.fields["trailer_link"].initial = obj.trailer_link
+	form.fields["quality"].initial = obj.Quality
+	form.fields["movies_type"].initial = obj.movies_type
+	form.fields["movies_thumbnail"].initial = obj.movies_thumbnail
+
+	movies_detail=Movies_list.objects.filter(movies_id=movies_id)
+	print(movies_detail)
 	url=url_filter(request,movies_id)
 	if form.is_valid():
 		if request.user.is_staff:
+			obj_movies_update=Movies_list.objects.filter(movies_id=movies_id).update(
+				name=request.POST["name"],
+				country=request.POST["country"],
+				story_line=request.POST["story_line"],
+				cost=request.POST["cost"],
+				release_date=request.POST["release_date"],
+				imdb_rating=request.POST["imdb_rating"],
+				imdb_link=request.POST["imdb_link"],
+				trailer_link=request.POST["trailer_link"],
+				Quality=request.POST["quality"],
+				movies_type=request.POST["movies_type"],
+				movies_thumbnail=request.FILES["movies_thumbnail"],
+				movies_user_id_id=request.user.id);
+
+			obj.cast.clear()
+			s='cast_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.cast.add(username)
+			obj.genre.clear()
+			s='genre_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.genre.add(username)
+			obj.director.clear()
+			s='director_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.director.add(username)
+			obj.writer.clear()
+			s='writer_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.writer.add(username)
+			obj.awards.clear()
+			s='award_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.awards.add(username)
+			obj.language.clear()
+			s='language_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.language.add(username)
+
+
+
 			messages.success(request, f'Movies type List has been updated!')
-			form.save()
 			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'You do not have Admin access!')
@@ -317,8 +396,11 @@ def Movies_update(request,movies_id):
 	context={
 		"form":form,
 		"form_name":url,
+		"obj":obj,
+		"movies_detail":movies_detail,
+		"movies_id":movies_id
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/movies_list_update.html',context)
 @login_required
 def Season_update(request,season_id):
 	obj=get_object_or_404(Season_list,season_id=season_id)
@@ -367,16 +449,38 @@ def Episode_update(request,episode_id):
 @login_required
 def Link_update(request,link_id):
 	obj=get_object_or_404(Link_list,link_id=link_id)
-	form=Create_Link_form(
+	form=Update_Link_form(
 			data=(request.POST or None),
 			files=(request.FILES or None),
-			instance=obj,
+			# instance=obj,
 		)
+	form.fields["name"].initial=obj.name
+	form.fields["link"].initial=obj.link
+	form.fields["link_type"].initial = obj.link_type
+	form.fields["quality"].initial = obj.quality
+	link_detail=Link_list.objects.filter(link_id=link_id)
+	
 	url=url_filter(request,link_id)
 	if form.is_valid():
-		if request.user.is_staff:
+		# print(request.POST["name"])
+		if request.user.is_active:
+			objs=Link_list.objects.filter(link_id=link_id).update(
+				name=request.POST["name"],
+				link=request.POST["link"],
+				quality_id=request.POST["quality"],
+				link_type_id=request.POST["link_type"],
+				link_user_id_id=request.user.id,
+				link_episode_season_id_id=1);
+
+			obj.subtitle.clear()
+			s='subtitle_show_result'
+			for i in range(10):
+				x=f'{s}{i}'
+				username = request.POST.get(f'{s}{i}')
+				if username != None:
+					print(username)
+					obj.subtitle.add(username)
 			messages.success(request, f'Movies type List has been updated!')
-			form.save()
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -384,5 +488,7 @@ def Link_update(request,link_id):
 	context={
 		"form":form,
 		"form_name":url,
+		"link_detail":link_detail,
+		"link_id":link_id
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/link_list_update.html',context)
