@@ -202,6 +202,7 @@ class Movies_list(models.Model):
 			output_size = (200,300)
 			image_movies=img.resize(output_size,resample=Image.ANTIALIAS)
 			image_movies.save(self.movies_thumbnail.path)
+
 	
 
 	def __str__(self):

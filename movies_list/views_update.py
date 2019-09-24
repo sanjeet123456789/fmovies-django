@@ -316,9 +316,7 @@ def Movies_update(request,movies_id):
 	form.fields["quality"].initial = obj.Quality
 	form.fields["movies_type"].initial = obj.movies_type
 	form.fields["movies_thumbnail"].initial = obj.movies_thumbnail
-
 	movies_detail=Movies_list.objects.filter(movies_id=movies_id)
-	print(movies_detail)
 	url=url_filter(request,movies_id)
 	if form.is_valid():
 		if request.user.is_staff:
@@ -333,9 +331,14 @@ def Movies_update(request,movies_id):
 				trailer_link=request.POST["trailer_link"],
 				Quality=request.POST["quality"],
 				movies_type=request.POST["movies_type"],
-				movies_thumbnail=request.FILES["movies_thumbnail"],
+				# movies_thumbnail="movies_pics/"+str(request.FILES["movies_thumbnail"]),
+				# movies_thumbnail=request.FILES.get('movies_thumbnail'),
 				movies_user_id_id=request.user.id);
-
+		
+			# Movies_list.save();
+		for i in movies_detail:
+			i.movies_thumbnail=request.FILES.get("movies_thumbnail",obj.movies_thumbnail)
+			i.save()
 			obj.cast.clear()
 			s='cast_show_result'
 			for i in range(10):

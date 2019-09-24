@@ -303,7 +303,7 @@ function sceSelect_cast() {
     var writerResult_id=[];
     {% for writer in movies_detail.0.writer.all %}
       writerResult.push("{{writer}}"); 
-      writerResult_id.push("{{writer.director_id}}");
+      writerResult_id.push("{{writer.writer_id}}");
     {%endfor%}
     show_writer_result_function();
     function show_writer_result_function(){
