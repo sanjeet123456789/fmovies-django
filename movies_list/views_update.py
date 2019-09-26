@@ -317,7 +317,7 @@ def Movies_update(request,movies_id):
 	form.fields["movies_type"].initial = obj.movies_type
 	form.fields["movies_thumbnail"].initial = obj.movies_thumbnail
 	movies_detail=Movies_list.objects.filter(movies_id=movies_id)
-	url=url_filter(request,movies_id)
+	url=request.path[1:7]
 	if form.is_valid():
 		if request.user.is_staff:
 			obj_movies_update=Movies_list.objects.filter(movies_id=movies_id).update(
@@ -417,6 +417,7 @@ def Season_update(request,movies_id,season_id):
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
 			form.save()
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -441,6 +442,7 @@ def Episode_update(request,movies_id,season_id,episode_id):
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
 			form.save()
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:
@@ -468,7 +470,7 @@ def Link_update(request,movies_id,season_id,episode_id,link_id):
 	form.fields["quality"].initial = obj.quality
 	link_detail=Link_list.objects.filter(link_id=link_id)
 	
-	url=url_filter(request,link_id)
+	url=request.path[1:5]
 	if form.is_valid():
 		# print(request.POST["name"])
 		if request.user.is_active:
@@ -489,6 +491,7 @@ def Link_update(request,movies_id,season_id,episode_id,link_id):
 					print(username)
 					obj.subtitle.add(username)
 			messages.success(request, f'Movies type List has been updated!')
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'You do not have Admin access!')
 	else:

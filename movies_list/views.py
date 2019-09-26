@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.contrib import messages
 from django.db.models import Max
 from math import ceil
@@ -38,12 +39,18 @@ def Index(request):
 def Movies_detail(request,movies_id):
 	movies_details=Movies_list.objects.filter(movies_id=movies_id)
 	season_details=Season_list.objects.filter(season_movies_id=movies_id)
-	episode_details=Episode_list.objects.filter(episode_season_id__season_movies_id=movies_id)
+	season_id_param=request.GET.get('season_id')
+	episode_id_param=request.GET.get('episode_id')
+	print(season_id_param)
+	print(episode_id_param)
+	episode_details=Episode_list.objects.filter(episode_season_id=season_id_param)
+	# episode_details=Episode_list.objects.filter(episode_season_id__season_movies_id=movies_id)
 	link_details=Link_list.objects.filter(link_episode_season_id__episode_season_id__season_movies_id=movies_id)
 	context={
 		"movies_details":movies_details,
 		"season_details":season_details,
 		"episode_details":episode_details,
+		"season_id_param":season_id_param,
 		"link_details":link_details
 
 	}
@@ -58,6 +65,11 @@ def Genre_detail(request,genre_name):
 
 def Cast_detail(request,cast_name):
 	cast_details=Movies_list.objects.filter(cast__cast_name=cast_name)
+	paginator = Paginator(cast_details, 4)
+	page = request.GET.get('page')
+	cast_details = paginator.get_page(page)
+	print(cast_details.has_previous())
+	print(cast_details.has_next())
 	context={
 		"cast_details":cast_details,
 	}
@@ -547,6 +559,7 @@ def Season_create(request,movies_id):
 			obj.save()
 			form.save_m2m()
 			messages.success(request, f'Season has been created!')
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'Please Login to create movies!')
 	else:
@@ -577,6 +590,7 @@ def Episode_create(request,movies_id,season_id):
 			obj.save()
 			form.save_m2m()
 			messages.success(request, f'Season has been created!')
+			return redirect('movies-detail',movies_id)
 		else:
 			messages.warning(request, f'Please Login to create movies!')
 	else:
@@ -619,6 +633,7 @@ def Link_create(request,movies_id,season_id,episode_id):
 					r.subtitle.add(username)
 			r.save()
 			messages.success(request, f'Season has been created!')
+			return redirect('movies-detail',movies_id)
 
 		else:
 			messages.warning(request, f'Please Login to create movies!')

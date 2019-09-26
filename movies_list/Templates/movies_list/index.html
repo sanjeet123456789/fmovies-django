@@ -49,7 +49,7 @@
         <div class="col-xs-3 col-sm-3 col-md-3">
           <div class="card align-items-center" style="width: 18rem;">
             <a class="no-underline" href="{% url 'movies-detail' i.movies_id%}">
-            <img src='/media/{{i.image}} ' class="card-img-top" alt="...">
+            <img src="../../media/{{i.movies_thumbnail}}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title" id="namepr{{i.id}}">{{i.name|slice:"0.15"}}..,</h5>
               <p class="card-text">{{i.desc|slice:"0:13"}}...</p>
