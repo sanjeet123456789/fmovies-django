@@ -3,7 +3,7 @@
 {% block content %}
     <div class="content-section">
 
-        <form method="POST" id="moviesForm" action="{% url 'link-create' %}" novalidate enctype="multipart/form-data" >
+        <form method="POST" id="moviesForm" action="{% url 'link-create' movies_id season_id episode_id %}" novalidate enctype="multipart/form-data" >
             {% csrf_token %}
             <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{form_name|capfirst}}</legend>

@@ -306,9 +306,9 @@ def Movies_delete(request,movies_id):
 	return render(request,"movies_list/list_delete.html",context)
 
 @login_required
-def Season_delete(request,season_id):
+def Season_delete(request,movies_id,season_id):
 	obj=get_object_or_404(Season_list,season_id=season_id)
-	url=url_filter(request,season_id)
+	url=request.path[1:7]
 	form=Create_Season_form(
 			instance=obj,
 		)
@@ -326,9 +326,9 @@ def Season_delete(request,season_id):
 	}
 	return render(request,"movies_list/list_delete.html",context)
 @login_required
-def Episode_delete(request,episode_id):
+def Episode_delete(request,movies_id,season_id,episode_id):
 	obj=get_object_or_404(Episode_list,episode_id=episode_id)
-	url=url_filter(request,episode_id)
+	url=request.path[1:8]
 	form=Create_Episode_form(
 			instance=obj,
 		)

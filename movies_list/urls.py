@@ -54,8 +54,8 @@ urlpatterns = [
     path('subtitle/<int:subtitle_id>/delete',Subtitle_list_delete,name="subtitle-list-delete"),
     path('movies-type/<int:movies_type_id>/delete',Movies_type_list_delete,name="movies-type-list-delete"),
     path('movies/<int:movies_id>/delete',Movies_delete,name='movies-delete'),
-    path('season/<int:season_id>/delete',Season_delete,name='season-delete'),
-    path('episode/<int:episode_id>/delete',Episode_delete,name='episode-delete'),
+    path('season/<int:movies_id>/<int:season_id>/delete',Season_delete,name='season-delete'),
+    path('episode/<int:movies_id>/<int:season_id>/<int:episode_id>/delete',Episode_delete,name='episode-delete'),
     path('link/<int:link_id>/delete',Link_delete,name='link-delete'),
 
     path('award/<int:award_id>/update',Award_list_update,name="award-list-update"),
@@ -71,9 +71,9 @@ urlpatterns = [
     path('subtitle/<int:subtitle_id>/update',Subtitle_list_update,name="subtitle-list-update"),
     path('movies-type/<int:movies_type_id>/update',Movies_type_list_update,name="movies-type-list-update"),
     path('movies/<int:movies_id>/update',Movies_update,name='movies-update'),
-    path('season/<int:season_id>/update',Season_update,name='season-update'),
-    path('episode/<int:episode_id>/update',Episode_update,name='episode-update'),
-    path('link/<int:link_id>/update',Link_update,name='link-update'),
+    path('season/<int:movies_id>/<int:season_id>/update',Season_update,name='season-update'),
+    path('episode/<int:movies_id>/<int:season_id>/<int:episode_id>/update',Episode_update,name='episode-update'),
+    path('link/<int:movies_id>/<int:season_id>/<int:episode_id>/<int:link_id>/update',Link_update,name='link-update'),
 
     path('award/new/',Award_list_create,name="award-list-create"),
     path('cast/new/',Cast_list_create,name="cast-list-create"),
@@ -88,9 +88,9 @@ urlpatterns = [
     path('subtitle/new/',Subtitle_list_create,name="subtitle-list-create"),
     path('movies-type/new/',Movies_type_list_create,name="movies-type-list-create"),
     path('movies/new/',Movies_create,name='movies-create'),
-    path('season/new/',Season_create,name='season-create'),
-    path('episode/new/',Episode_create,name='episode-create'),
-    path('link/new/',Link_create,name='link-create')
+    path('season/<int:movies_id>/new/',Season_create,name='season-create'),
+    path('episode/<int:movies_id>/<int:season_id>/new/',Episode_create,name='episode-create'),
+    path('link/<int:movies_id>/<int:season_id>/<int:episode_id>/new/',Link_create,name='link-create')
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

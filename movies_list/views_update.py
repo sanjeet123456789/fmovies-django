@@ -49,7 +49,7 @@ def Award_list_update(request,award_id):
 	"form":form,
 	"form_name":url,
 	}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 	
 @login_required
 def Cast_list_update(request,cast_id):
@@ -72,7 +72,7 @@ def Cast_list_update(request,cast_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Director_list_update(request,director_id):
 	obj=get_object_or_404(Director_list,director_id=director_id)
@@ -94,7 +94,7 @@ def Director_list_update(request,director_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Writer_list_update(request,writer_id):
 	obj=get_object_or_404(Writer_list,writer_id=writer_id)
@@ -116,7 +116,7 @@ def Writer_list_update(request,writer_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Country_list_update(request,country_id):
 	obj=get_object_or_404(Country_list,country_id=country_id)
@@ -138,7 +138,7 @@ def Country_list_update(request,country_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 
 @login_required
 def Quality_list_update(request,quality_id):
@@ -161,7 +161,7 @@ def Quality_list_update(request,quality_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 
 @login_required
 def Genre_list_update(request,genre_id):
@@ -184,7 +184,7 @@ def Genre_list_update(request,genre_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Language_list_update(request,language_id):
 	obj=get_object_or_404(Language_list,language_id=language_id)
@@ -206,7 +206,7 @@ def Language_list_update(request,language_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Server_list_update(request,server_id):
 	obj=get_object_or_404(Server_list,server_id=server_id)
@@ -228,7 +228,7 @@ def Server_list_update(request,server_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Content_type_list_update(request,server_type_id):
 	obj=get_object_or_404(Content_type_list,server_type_id=server_type_id)
@@ -250,7 +250,7 @@ def Content_type_list_update(request,server_type_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
 def Subtitle_list_update(request,subtitle_id):
 	obj=get_object_or_404(Subtitle_list,subtitle_id=subtitle_id)
@@ -272,7 +272,7 @@ def Subtitle_list_update(request,subtitle_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 
 @login_required
 def Movies_type_list_update(request,movies_type_id):
@@ -295,7 +295,7 @@ def Movies_type_list_update(request,movies_type_id):
 		"form":form,
 		"form_name":url,
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 
 @login_required
 def Movies_update(request,movies_id):
@@ -405,14 +405,14 @@ def Movies_update(request,movies_id):
 		}
 	return render(request,'movies_list/movies_list_update.html',context)
 @login_required
-def Season_update(request,season_id):
+def Season_update(request,movies_id,season_id):
 	obj=get_object_or_404(Season_list,season_id=season_id)
 	form=Create_Season_form(
 			data=(request.POST or None),
 			files=(request.FILES or None),
 			instance=obj,
 		)
-	url=url_filter(request,season_id)
+	url=request.path[1:7]
 	if form.is_valid():
 		if request.user.is_staff:
 			messages.success(request, f'Movies type List has been updated!')
@@ -424,10 +424,12 @@ def Season_update(request,season_id):
 	context={
 		"form":form,
 		"form_name":url,
+		"movies_id":movies_id,
+		"season_id":season_id
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/list_update.html',context)
 @login_required
-def Episode_update(request,episode_id):
+def Episode_update(request,movies_id,season_id,episode_id):
 	obj=get_object_or_404(Episode_list,episode_id=episode_id)
 	form=Create_Episode_form(
 			data=(request.POST or None),
@@ -446,11 +448,14 @@ def Episode_update(request,episode_id):
 	context={
 		"form":form,
 		"form_name":url,
+		"movies_id":movies_id,
+		"season_id":season_id,
+		"episode_id":episode_id
 		}
-	return render(request,'movies_list/list_create.html',context)
+	return render(request,'movies_list/episode_list_update.html',context)
 
 @login_required
-def Link_update(request,link_id):
+def Link_update(request,movies_id,season_id,episode_id,link_id):
 	obj=get_object_or_404(Link_list,link_id=link_id)
 	form=Update_Link_form(
 			data=(request.POST or None),
@@ -473,7 +478,7 @@ def Link_update(request,link_id):
 				quality_id=request.POST["quality"],
 				link_type_id=request.POST["link_type"],
 				link_user_id_id=request.user.id,
-				link_episode_season_id_id=1);
+				link_episode_season_id_id=episode_id);
 
 			obj.subtitle.clear()
 			s='subtitle_show_result'
@@ -492,6 +497,9 @@ def Link_update(request,link_id):
 		"form":form,
 		"form_name":url,
 		"link_detail":link_detail,
-		"link_id":link_id
+		"movies_id":movies_id,
+		"season_id":season_id,
+		"episode_id":episode_id,
+		"link_id":link_id,
 		}
 	return render(request,'movies_list/link_list_update.html',context)

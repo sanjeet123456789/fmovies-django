@@ -29,6 +29,43 @@
               </ol>
             </nav>
         </div>
+        <div><a href="{%url 'season-create' movies_details.0.movies_id %}">create season</a></div><br>
+
+          <div>
+           
+            {% for season in season_details%} 
+              {{season.season_name}}<br> <a href="{%url 'season-update' movies_details.0.movies_id  season.season_id %}">Edit</a><br>
+              <div><a href="{%url 'episode-create' movies_details.0.movies_id  season.season_id %}">create episode </a><br></div>
+
+               {% for episode in episode_details %}
+
+                  <!-- {{season.season_id}}--ep{{episode.episode_season_id_id}} -->
+                  {%if season.season_id == episode.episode_season_id_id%}
+                
+                  {{episode}}<br><a href="{%url 'episode-update' movies_details.0.movies_id  season.season_id episode.episode_id%}">Edit</a><br>
+                
+              <div><a href="{% url 'link-create' movies_details.0.movies_id  season.season_id  episode.episode_id %}">create link </a><br>{%endif%}
+                {% for link in link_details%}
+
+                <!-- {{episode.episode_id}}--li{{link.link_episode_season_id_id}} -->
+                  {% if season.season_id == episode.episode_season_id_id and episode.episode_id == link.link_episode_season_id_id %}
+                  {{link.name}}<br><a href="{%url 'link-update' movies_details.0.movies_id  season.season_id episode.episode_id link.link_id%}">Edit</a><br>
+                  {% endif %}
+                {%endfor%}
+               {%endfor%}
+            {%endfor%}
+    
+
+
+
+
+
+            {% for link in link_details%}
+
+
+            {%endfor%}
+
+          </div>
         <div class="row ">
             <div class="col col-md-2 mx-2 px-0 text-left my-2">
                
