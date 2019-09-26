@@ -1,141 +1,3 @@
-{% extends "users/base.html" %}
-{% load crispy_forms_tags %}
-
-{% block css%}
-<style type="text/css">
-.sidebar{
-    display:none;
-}
-.main-content{
-    flex:auto;
-    max-width:100%;
-}
-
-
-</style>
-
-
-{% endblock %}
-
-
-{% block content %}
-    <div class="content-section ">
-        <div class="row ">
-            <nav aria-label="breadcrumb ">
-              <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
-                <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">{{movies_details.0.movies_type}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{movies_details.0.name}}</li>
-              </ol>
-            </nav>
-        </div>
-        <div>
-          <a href="{%url 'movies-update' movies_details.0.movies_id   %}">Edit</a><br>
-
-
-
-          <a href="{%url 'season-create' movies_details.0.movies_id %}">create season</a><br>
-
-          <div>
-           <!-- 
-            {% for season in season_details%} 
-              {{season.season_name}}<br> <a href="{%url 'season-update' movies_details.0.movies_id  season.season_id %}">Edit</a><br>
-              <div><a href="{%url 'episode-create' movies_details.0.movies_id  season.season_id %}">create episode </a><br></div>
-
-               {% for episode in episode_details %}
-
-                   {{season.season_id}}--ep{{episode.episode_season_id_id}} 
-                  {%if season.season_id == episode.episode_season_id_id%}
-                
-                  {{episode}}<br><a href="{%url 'episode-update' movies_details.0.movies_id  season.season_id episode.episode_id%}">Edit</a><br>
-                
-              <div><a href="{% url 'link-create' movies_details.0.movies_id  season.season_id  episode.episode_id %}">create link </a><br>{%endif%}
-                {% for link in link_details%}
-
-                 {{episode.episode_id}}--li{{link.link_episode_season_id_id}} 
-                  {% if season.season_id == episode.episode_season_id_id and episode.episode_id == link.link_episode_season_id_id %}
-                  {{link.name}}<br><a href="{%url 'link-update' movies_details.0.movies_id  season.season_id episode.episode_id link.link_id%}">Edit</a><br>
-                  {% endif %}
-                {%endfor%}
-               {%endfor%}
-            {%endfor%} -->
-
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Season</button>
-    <ul class="dropdown-menu">
-      {% for season in season_details%}
-      <li><a href="?season_id={{ season.season_id }}">{{season.season_name}}</a></li>
-      {%endfor%}
-    </ul>
-</div>
-
-                   
-                  {% for episode in episode_details %}
-                  {{episode}}<br><a href="{%url 'episode-update' movies_details.0.movies_id  season_id_param episode.episode_id%}">Edit</a><br>
-                
-              <div><a href="{% url 'link-create' movies_details.0.movies_id  season_id_param  episode.episode_id %}">create link </a><br>
-                {% for link in link_details%}
-
-                 <!-- {{episode.episode_id}}--li{{link.link_episode_season_id_id}}  -->
-                  {% if  episode.episode_id == link.link_episode_season_id_id %}
-                  {{link.name}}<br><a href="{%url 'link-update' movies_details.0.movies_id  season_id_param episode.episode_id link.link_id%}">Edit</a><br>
-                  {% endif %}
-                {%endfor%}
-               {%endfor%}
-
-<!-- {{ request.get_full_path }} 
-{ for episode in episode_details %}
-<a href="{{ request.get_full_path }}&episode_id={{ episode.episode_id }}">{{episode.name}}</a></li>
-
-{endfor%} -->
-
-          </div>
-        <div class="row ">
-            <div class="col col-md-2 mx-2 px-0 text-left my-2">
-               
-                <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
-
-               
-            </div>
-            <div class="col-md-9   my-2">
-              <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0">{{movies_details.0.name|capfirst}} </h5>
-              <p class="pd-0 m-0  rounded text-secondary">Cast: {% for cast in movies_details.0.cast.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'cast-detail' cast_name=cast.cast_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{cast|join:""}}</span></a>{%endfor%}</p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Genre: {%for genre in movies_details.0.genre.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'genre-detail' genre_name=genre.genre_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{genre|join:""}}</span></a>{%endfor%}</p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Director: {%for director in movies_details.0.director.all%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'director-detail' director_name=director.director_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{director|join:""}}</span></a>{%endfor%}</p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Writer: {%for writer in movies_details.0.writer.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'writer-detail' writer_name=writer.writer_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{writer|join:""}}</span></a>{%endfor%}</p>
-
-
-              <p class="pd-0 m-0  rounded text-secondary">Awards: {%for award in movies_details.0.awards.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'award-detail' award_name=award.award_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{award|join:""}}</span></a>{%endfor%}</p>
-
-              
-              <p class="pd-0 m-0  rounded text-secondary">Country: <a class="no-underline" href="{% url 'country-detail' country_name=movies_details.0.country.country_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.country.country_name}}</span></a></p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Language: {%for language in movies_details.0.language.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'language-detail' language_name=language.language_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{language|join:""}}</a></span>{%endfor%}</p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Quality: <a class="no-underline" href="{% url 'quality-detail' quality_name=movies_details.0.Quality.quality_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.Quality.quality_name}}</span></a></p>
-
-              <p class="pd-0 m-0  rounded text-secondary">Movies type : <a class="no-underline" href="{% url 'movies_type-detail' movies_type_name=movies_details.0.movies_type.movies_type_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.movies_type.movies_type_name}}</span></a></p>
-            </div>
-            
-        </div> 
-
-
-    </div>
-</div>
-
-{% endblock content %}
-
-
-
 
 {% extends "users/base.html" %}
 {% load crispy_forms_tags %}
@@ -169,6 +31,64 @@
             </nav>
         </div>
  
+          <a href="{%url 'movies-update' movies_details.0.movies_id   %}">Edit</a><br>
+          <a href="{%url 'season-create' movies_details.0.movies_id %}">create season</a><br>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Season</button>
+    <ul class="dropdown-menu">
+      {% for season in season_details%}
+      <li><a href="?season_id={{ season.season_id }}">{{season.season_name}}</a></li>
+      {%endfor%}
+    </ul>
+</div>
+
+
+              {% for episode in episode_details %}
+                  {{episode}}<br><a href="{%url 'episode-update' movies_details.0.movies_id  season_id_param episode.episode_id%}">Edit</a><br>
+                
+              <div><a href="{% url 'link-create' movies_details.0.movies_id  season_id_param  episode.episode_id %}">create link </a><br>
+                {% for link in link_details%}
+                  {% if  episode.episode_id == link.link_episode_season_id_id %}
+                  {{link.name}}<br><a href="{%url 'link-update' movies_details.0.movies_id  season_id_param episode.episode_id link.link_id%}">Edit</a><br>
+                  {% endif %}
+                {%endfor%}
+               {%endfor%}
+        <div class="row ">
+            <div class="col col-md-2 mx-2 px-0 text-left my-2">
+               
+                <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
+
+               
+            </div>
+            <div class="col-md-9   my-2">
+              <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0">{{movies_details.0.name|capfirst}} </h5>
+              <p class="pd-0 m-0  rounded text-secondary">Cast: {% for cast in movies_details.0.cast.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'cast-detail' cast_name=cast.cast_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{cast|join:""}}</span></a>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Genre: {%for genre in movies_details.0.genre.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'genre-detail' genre_name=genre.genre_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{genre|join:""}}</span></a>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Director: {%for director in movies_details.0.director.all%}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'director-detail' director_name=director.director_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{director|join:""}}</span></a>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Writer: {%for writer in movies_details.0.writer.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'writer-detail' writer_name=writer.writer_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{writer|join:""}}</span></a>{%endfor%}</p>
+
+
+              <p class="pd-0 m-0  rounded text-secondary">Awards: {%for award in movies_details.0.awards.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'award-detail' award_name=award.award_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{award|join:""}}</span></a>{%endfor%}</p>
+
+              
+              <p class="pd-0 m-0  rounded text-secondary">Country: <a class="no-underline" href="{% url 'country-detail' country_name=movies_details.0.country.country_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.country.country_name}}</span></a></p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Language: {%for language in movies_details.0.language.all %}{% if not forloop.first %} {% endif %}<a class="no-underline" href="{% url 'language-detail' language_name=language.language_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{language|join:""}}</a></span>{%endfor%}</p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Quality: <a class="no-underline" href="{% url 'quality-detail' quality_name=movies_details.0.Quality.quality_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.Quality.quality_name}}</span></a></p>
+
+              <p class="pd-0 m-0  rounded text-secondary">Movies type : <a class="no-underline" href="{% url 'movies_type-detail' movies_type_name=movies_details.0.movies_type.movies_type_name %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies_details.0.movies_type.movies_type_name}}</span></a></p>
+            </div>
+            
+        </div> 
 
 
 
@@ -197,3 +117,87 @@
 
 
 {% endblock content %}
+
+
+<!-- { extends "users/base.html" %}
+{ load crispy_forms_tags %}
+
+{ block css%}
+<style type="text/css">
+.sidebar{
+    display:none;
+}
+.main-content{
+    flex:auto;
+    max-width:100%;
+}
+
+
+</style>
+
+
+{ endblock %}
+
+
+{ block content %}
+    <div class="content-section ">
+        <div class="row ">
+            <nav aria-label="breadcrumb ">
+              <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
+                <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">{{movies_details.0.movies_type}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{movies_details.0.name}}</li>
+              </ol>
+            </nav>
+        </div>
+    
+        
+
+          <div>
+           
+            {% for season in season_details%} 
+              {{season.season_name}}<br> <a href="{%url 'season-update' movies_details.0.movies_id  season.season_id %}">Edit</a><br>
+              <div><a href="{%url 'episode-create' movies_details.0.movies_id  season.season_id %}">create episode </a><br></div>
+
+               {% for episode in episode_details %}
+
+                   {{season.season_id}}--ep{{episode.episode_season_id_id}} 
+                  {%if season.season_id == episode.episode_season_id_id%}
+                
+                  {{episode}}<br><a href="{%url 'episode-update' movies_details.0.movies_id  season.season_id episode.episode_id%}">Edit</a><br>
+                
+              <div><a href="{% url 'link-create' movies_details.0.movies_id  season.season_id  episode.episode_id %}">create link </a><br>{%endif%}
+                {% for link in link_details%}
+
+                 {{episode.episode_id}}--li{{link.link_episode_season_id_id}} 
+                  {% if season.season_id == episode.episode_season_id_id and episode.episode_id == link.link_episode_season_id_id %}
+                  {{link.name}}<br><a href="{%url 'link-update' movies_details.0.movies_id  season.season_id episode.episode_id link.link_id%}">Edit</a><br>
+                  {% endif %}
+                {%endfor%}
+               {%endfor%}
+            {%endfor%}
+
+
+
+
+
+                   
+                  
+
+{{ request.get_full_path }} 
+{ for episode in episode_details %}
+<a href="{{ request.get_full_path }}&episode_id={{ episode.episode_id }}">{{episode.name}}</a></li>
+
+{endfor%}
+
+          </div>
+
+
+
+    </div>
+</div>
+
+{ endblock content %} -->
+
+
+
