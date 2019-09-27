@@ -4,19 +4,21 @@ from django.contrib import admin
 from better_filter_widget import BetterFilterWidget
 from dal import autocomplete
 import django_filters
+from django.contrib.auth.models import *
 from django.contrib.admin.widgets import FilteredSelectMultiple
 class SearchFilter(django_filters.FilterSet):
-	# n = django_filters.CharFilter(lookup_expr='icontains')
-	# language = django_filters.ModelMultipleChoiceFilter(queryset=Language_list.objects.all(),widget=forms.CheckboxSelectMultiple)
-    class Meta:
-        model = Movies_list
-        fields=['name','language']
-       
 
-        # fields ={
-        # 	'name': ['icontains', ],
-        # 	# 'name': ['exact', ],
-        # }
+	name = django_filters.CharFilter(lookup_expr='icontains')
+	language = django_filters.ModelMultipleChoiceFilter(queryset=Language_list.objects.all(),widget=forms.CheckboxSelectMultiple)
+	cast = django_filters.ModelMultipleChoiceFilter(queryset=Cast_list.objects.all(),widget=forms.CheckboxSelectMultiple)
+	class Meta:
+		model = Movies_list
+		fields=['name','language','cast']
+
+		# fields ={
+		# 	'name': ['icontains', ],
+		# 	# 'name': ['exact', ],
+		# }
 		
 
 

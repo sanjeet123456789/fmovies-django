@@ -37,9 +37,9 @@ def Index(request):
 	return render(request,"movies_list/index.html",context)
 
 def Search_list(request):
-    movies_list = Movies_list.objects.all()
-    movies_filter = SearchFilter(request.GET, queryset=movies_list)
-    return render(request, 'movies_list/search_details.html', {'filter': movies_filter})
+	movies_list = Movies_list.objects.all()
+	movies_filter = SearchFilter(request.GET, queryset=movies_list)
+	return render(request, 'movies_list/search_details.html', {'filter': movies_filter})
 
 
 
@@ -57,9 +57,9 @@ def Search_list(request):
 # 	for el in languagex:
 # 		print(el)
 # 	# movies_details=movies_details.filter(story_line__contains="mercy")
-# 	paginator=Paginator(movies_details,5)
-# 	page=request.GET.get('page')
-# 	movies_detail=paginator.get_page(page)
+	paginator=Paginator(movies_details,5)
+	page=request.GET.get('page')
+	movies_detail=paginator.get_page(page)
 
 
 # 	context={

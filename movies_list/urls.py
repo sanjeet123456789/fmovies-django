@@ -36,6 +36,7 @@ urlpatterns = [
   
     path("search/",FilterView.as_view(filterset_class=SearchFilter,
         template_name='movies_list/search_details.html'),name="search-detail"),
+    # path("search/",Search_list,name="search-detail"),
     path('ajax/load-cast/', load_cast, name='ajax_load_cast'),
     path('ajax/load-genre/', load_genre, name='ajax_load_genre'),
     path('ajax/load-director/', load_director, name='ajax_load_director'),
