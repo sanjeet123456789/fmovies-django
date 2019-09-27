@@ -33,6 +33,10 @@
               <a class="nav-item nav-link" href="#">Home</a>
               <a class="nav-item nav-link" href="#">About</a>
               <a class="nav-item nav-link" href="#">About</a>
+               <form action="{%url 'search-detail'%}" method="GET">
+                <input type="text" placeholder="Search.." name="name">
+                <button type="submit">Submit</button>
+              </form>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
@@ -76,7 +80,16 @@
         </div>
       </div>
     </main>
-	
+<!-- 	<style type="text/css">
+   .navbar-nav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+} 
+  </style> -->
 
 	{%block js%}
 

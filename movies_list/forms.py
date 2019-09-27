@@ -3,7 +3,30 @@ from movies_list.models import *
 from django.contrib import admin
 from better_filter_widget import BetterFilterWidget
 from dal import autocomplete
+import django_filters
 from django.contrib.admin.widgets import FilteredSelectMultiple
+class SearchFilter(django_filters.FilterSet):
+	# n = django_filters.CharFilter(lookup_expr='icontains')
+	# language = django_filters.ModelMultipleChoiceFilter(queryset=Language_list.objects.all(),widget=forms.CheckboxSelectMultiple)
+    class Meta:
+        model = Movies_list
+        fields=['name','language']
+       
+
+        # fields ={
+        # 	'name': ['icontains', ],
+        # 	# 'name': ['exact', ],
+        # }
+		
+
+
+
+
+
+
+
+
+
 class Create_Award_list_form(forms.ModelForm):
 	class Meta:
 		model=Award_list

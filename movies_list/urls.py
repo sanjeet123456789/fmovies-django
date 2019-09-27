@@ -14,7 +14,9 @@ from .views import (
 from .views import *
 from .views_update import *
 from .views_delete import *
+from .forms import *
 from django.views.generic import RedirectView
+from django_filters.views import FilterView
 urlpatterns = [
     path("",Index,name="movies-index"),
     path("movies/<int:movies_id>/",Movies_detail,name="movies-detail"),
@@ -28,10 +30,12 @@ urlpatterns = [
     path("movies-type/<str:movies_type_name>",Movies_type_detail,name="movies_type-detail"),
     path("quality/<str:quality_name>",Quality_detail,name="quality-detail"),
     path("contact/",Contact_list,name="fmovies-contact"),
+    
 
 
   
-
+    path("search/",FilterView.as_view(filterset_class=SearchFilter,
+        template_name='movies_list/search_details.html'),name="search-detail"),
     path('ajax/load-cast/', load_cast, name='ajax_load_cast'),
     path('ajax/load-genre/', load_genre, name='ajax_load_genre'),
     path('ajax/load-director/', load_director, name='ajax_load_director'),
