@@ -15,7 +15,7 @@ class SearchFilter(django_filters.FilterSet):
 	cast = django_filters.ModelMultipleChoiceFilter(queryset=Cast_list.objects.all(),widget=forms.CheckboxSelectMultiple)
 	class Meta:
 		model = Movies_list
-		fields=['name','language','cast']
+		fields=['language','cast']
 
 		# fields ={
 		# 	'name': ['icontains', ],

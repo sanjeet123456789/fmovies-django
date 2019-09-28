@@ -39,6 +39,10 @@ def Index(request):
 def Search_list(request):
 	movies_list = Movies_list.objects.all()
 	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
 	movies_filter_complete = SearchFilter(request.GET, queryset=movies_list).qs
 	print(movies_filter_complete)
 	paginator = Paginator(movies_filter_complete, 2)
@@ -48,6 +52,13 @@ def Search_list(request):
 	print(movies_filter)
 	return render(request, 'movies_list/search_details.html', {'filter': movies_filter,"movies_filter_complete":movies_filter_complete,
 		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
+
+
+
 		})
 
 
@@ -77,66 +88,215 @@ def Movies_detail(request,movies_id):
 
 def Genre_detail(request,genre_name):
 	genre_details=Movies_list.objects.filter(genre__genre_name=genre_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	genre_filter_complete = SearchFilter(request.GET, queryset=genre_details).qs
+	paginator = Paginator(genre_filter_complete, 4)
+	page = request.GET.get('page')
+	genre_filter = paginator.get_page(page)
 	context={
-		"genre_details":genre_details,
+		"cast_filter":genre_filter,
+		"cast_filter_complete":genre_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
+
+
 	}
-	return render(request,"movies_list/genre_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 
 def Cast_detail(request,cast_name):
 	cast_details=Movies_list.objects.filter(cast__cast_name=cast_name)
-	paginator = Paginator(cast_details, 4)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	cast_filter_complete = SearchFilter(request.GET, queryset=cast_details).qs
+	paginator = Paginator(cast_filter_complete, 4)
 	page = request.GET.get('page')
-	cast_details = paginator.get_page(page)
-	print(cast_details.has_previous())
-	print(cast_details.has_next())
+	cast_filter = paginator.get_page(page)
 	context={
-		"cast_details":cast_details,
+		"cast_filter":cast_filter,
+		"cast_filter_complete":cast_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
+
+
 	}
 	return render(request,"movies_list/cast_details.html",context)
 
 def Director_detail(request,director_name):
 	director_details=Movies_list.objects.filter(director__director_name=director_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	director_filter_complete = SearchFilter(request.GET, queryset=director_details).qs
+	paginator = Paginator(director_filter_complete, 4)
+	page = request.GET.get('page')
+	director_filter = paginator.get_page(page)
+
+
 	context={
-		"director_details":director_details,
+		"cast_filter":director_filter,
+		"cast_filter_complete":director_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/director_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 def Writer_detail(request,writer_name):
 	writer_details=Movies_list.objects.filter(writer__writer_name=writer_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	writer_filter_complete = SearchFilter(request.GET, queryset=writer_details).qs
+	paginator = Paginator(writer_filter_complete, 4)
+	page = request.GET.get('page')
+	writer_filter = paginator.get_page(page)
+
+
 	context={
-		"x":writer_details,
+		"cast_filter":writer_filter,
+		"cast_filter_complete":writer_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/writer_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 def Award_detail(request,award_name):
 	award_details=Movies_list.objects.filter(awards__award_name=award_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	award_filter_complete = SearchFilter(request.GET, queryset=award_details).qs
+	paginator = Paginator(award_filter_complete, 4)
+	page = request.GET.get('page')
+	award_filter = paginator.get_page(page)
+
+
 	context={
-		"award_details":award_details,
+		"cast_filter":award_filter,
+		"cast_filter_complete":award_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/award_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 def Country_detail(request,country_name):
 	country_details=Movies_list.objects.filter(country__country_name=country_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	country_filter_complete = SearchFilter(request.GET, queryset=country_details).qs
+	paginator = Paginator(country_filter_complete, 4)
+	page = request.GET.get('page')
+	country_filter = paginator.get_page(page)
+
+
 	context={
-		"country_details":country_details,
+		"cast_filter":country_filter,
+		"cast_filter_complete":country_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/country_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 def Language_detail(request,language_name):
 	language_details=Movies_list.objects.filter(language__language_name=language_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	language_filter_complete = SearchFilter(request.GET, queryset=language_details).qs
+	paginator = Paginator(language_filter_complete, 4)
+	page = request.GET.get('page')
+	language_filter = paginator.get_page(page)
+
+
 	context={
-		"language_details":language_details,
+		"cast_filter":language_filter,
+		"cast_filter_complete":language_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/language_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 def Movies_type_detail(request,movies_type_name):
 	movies_type_details=Movies_list.objects.filter(movies_type__movies_type_name=movies_type_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	movies_type_filter_complete = SearchFilter(request.GET, queryset=movies_type_details).qs
+	paginator = Paginator(movies_type_filter_complete, 4)
+	page = request.GET.get('page')
+	movies_type_filter = paginator.get_page(page)
+
+
 	context={
-		"movies_type_details":movies_type_details,
+		"cast_filter":movies_type_filter,
+		"cast_filter_complete":movies_type_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/movies_type_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
 
 def Quality_detail(request,quality_name):
 	quality_details=Movies_list.objects.filter(Quality__quality_name=quality_name)
+	language_list=Language_list.objects.all()
+	cast_list=Cast_list.objects.all()
+	country_list=Country_list.objects.all()
+	quality_list=Quality_list.objects.all()
+	movies_type=Movies_type_list.objects.all()
+	quality_filter_complete = SearchFilter(request.GET, queryset=quality_details).qs
+	paginator = Paginator(quality_filter_complete, 4)
+	page = request.GET.get('page')
+	quality_filter = paginator.get_page(page)
+
+
 	context={
-		"quality_details":quality_details,
+		"cast_filter":quality_filter,
+		"cast_filter_complete":quality_filter_complete,
+		"language_list":language_list,
+		"cast_list":cast_list,
+		"country_list":country_list,
+		"quality_list":quality_list,
+		"movies_type":movies_type,
 	}
-	return render(request,"movies_list/quality_details.html",context)
+	return render(request,"movies_list/cast_details.html",context)
+
 
 
 @login_required

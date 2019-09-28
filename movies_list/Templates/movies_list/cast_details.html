@@ -25,10 +25,47 @@
               <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
                 <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="cast_details">Data</li>
+                <li class="breadcrumb-item active" aria-current="cast_filter">Data</li>
               </ol>
             </nav>
         </div>
+         <div class="row d-flex justify-content-between">
+            <div class="float-left">{{cast_filter_complete.count}}-Result found</div>
+            <div class="float-right">
+                <form method="get">
+                {% for language in language_list%}
+                {{language.language_name}}<input type="checkbox" name="language" class="language" id="" value="{{language.language_id}}">
+                {%endfor%}
+                <br/>
+                {% for cast in cast_list%}
+                {{cast.cast_name}}<input type="checkbox" name="cast" class="cast" id="" value="{{cast.cast_id}}">
+                {%endfor%}
+                <br/>
+                {% for country in country_list%}
+                {{country.country_name}}<input type="checkbox" name="country" class="country" id="" value="{{country.country_id}}">
+                {%endfor%}
+                <br/>
+                {% for quality in quality_list%}
+                {{quality.quality_name}}<input type="checkbox" name="quality" class="quality" id="" value="{{quality.quality_id}}">
+                {%endfor%}
+                <br/>
+                {% for movies_type in movies_type%}
+                {{movies_type.movies_type_name}}<input type="checkbox" name="movies_type" class="movies_type" id="" value="{{movies_type.movies_type_id}}">
+                {%endfor%}
+                <input type="submit" value="submit">
+                </form>
+        
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
         <div class="row ">
             <!-- <div class="col col-md-2 mx-2 px-0 text-left my-2">
                
@@ -38,10 +75,10 @@
             </div> -->
             <!-- <div class="col-md-12   my-2">
               <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0"> </h5>
-              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in cast_details%}{% if not forloop.first %} {% endif %}<a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p> -->
+              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in cast_filter%}{% if not forloop.first %} {% endif %}<a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p> -->
             <div class="container">
                 <div class="movies_list row" style="justify-content:center;">
-                    {%for movies in cast_details%}{% if not forloop.first %} {% endif %}
+                    {%for movies in cast_filter%}{% if not forloop.first %} {% endif %}
 
                     <div class="card mx-2 my-2 wrapper" style="width: 14rem;">
                         
@@ -66,22 +103,22 @@
 
                 </div>
                     <div class="paginations" style="text-align:center">
-                {% if cast_details.has_previous %}
+                {% if cast_filter.has_previous %}
                 <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ cast_details.previous_cast_details_number }}">Previous</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ cast_filter.previous_page_number }}">Previous</a>
               {% endif %}
 
-              {% for num in cast_details.paginator.page_range %}
-                {% if cast_details.number == num %}
+              {% for num in cast_filter.paginator.page_range %}
+                {% if cast_filter.number == num %}
                   <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > cast_details.number|add:'-3' and num < cast_details.number|add:'3' %}
+                {% elif num > cast_filter.number|add:'-3' and num < cast_filter.number|add:'3' %}
                   <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
                 {% endif %}
               {% endfor %}
 
-              {% if cast_details.has_next %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ cast_details.next_page_number  }}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ cast_details.paginator.num_pages  }}">Last</a>
+              {% if cast_filter.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ cast_filter.next_page_number  }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ cast_filter.paginator.num_pages  }}">Last</a>
               {% endif %}
 
                     </div>
@@ -102,5 +139,14 @@ border-radius: 5px;
 }
 
 </style>
-
+<script type="text/javascript">
+function existingUrl(fullUrl) {
+  let query = fullUrl.split("?")[1];
+  query.split("&").forEach(param => {
+    let [name, value] = param.split("=");
+    $(`input[name=${name}][value=${value}]`).prop("checked", true);
+  });
+}
+existingUrl(window.location.href);
+</script>
 {% endblock content %}

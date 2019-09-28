@@ -34,17 +34,28 @@
             <div class="float-right">
                 <form method="get">
                 <input type="text" name="name" id="name" hidden >
-                Language
-                {% for x in language_list%}
-                {{x.language_name}}<input type="checkbox" name="language" class="language" id="" value="{{x.language_id}}">
+                {% for language in language_list%}
+                {{language.language_name}}<input type="checkbox" name="language" class="language" id="" value="{{language.language_id}}">
                 {%endfor%}
                 <br/>
-
-
+                {% for cast in cast_list%}
+                {{cast.cast_name}}<input type="checkbox" name="cast" class="cast" id="" value="{{cast.cast_id}}">
+                {%endfor%}
+                <br/>
+                {% for country in country_list%}
+                {{country.country_name}}<input type="checkbox" name="country" class="country" id="" value="{{country.country_id}}">
+                {%endfor%}
+                <br/>
+                {% for quality in quality_list%}
+                {{quality.quality_name}}<input type="checkbox" name="quality" class="quality" id="" value="{{quality.quality_id}}">
+                {%endfor%}
+                <br/>
+                {% for movies_type in movies_type%}
+                {{movies_type.movies_type_name}}<input type="checkbox" name="movies_type" class="movies_type" id="" value="{{movies_type.movies_type_id}}">
+                {%endfor%}
                 <input type="submit" value="submit">
                 </form>
-
-
+        
             </div>
         </div>
                 <div class="row ">
@@ -141,8 +152,7 @@
     <button type="submit">Search</button>
   </form>
 {{filter.form.language}} -->
-
-          
+  
 
 
 
@@ -165,7 +175,6 @@ function existingUrl(fullUrl) {
     $(`input[name=${name}][value=${value}]`).prop("checked", true);
   });
 }
-
 existingUrl(window.location.href);
 </script>
 
