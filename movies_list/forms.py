@@ -6,8 +6,10 @@ from dal import autocomplete
 import django_filters
 from django.contrib.auth.models import *
 from django.contrib.admin.widgets import FilteredSelectMultiple
-class SearchFilter(django_filters.FilterSet):
+from django.views.generic import *
 
+
+class SearchFilter(django_filters.FilterSet):
 	name = django_filters.CharFilter(lookup_expr='icontains')
 	language = django_filters.ModelMultipleChoiceFilter(queryset=Language_list.objects.all(),widget=forms.CheckboxSelectMultiple)
 	cast = django_filters.ModelMultipleChoiceFilter(queryset=Cast_list.objects.all(),widget=forms.CheckboxSelectMultiple)

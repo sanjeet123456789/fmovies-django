@@ -38,38 +38,21 @@ def Index(request):
 
 def Search_list(request):
 	movies_list = Movies_list.objects.all()
-	movies_filter = SearchFilter(request.GET, queryset=movies_list)
-	return render(request, 'movies_list/search_details.html', {'filter': movies_filter})
+	language_list=Language_list.objects.all()
+	movies_filter_complete = SearchFilter(request.GET, queryset=movies_list).qs
+	print(movies_filter_complete)
+	paginator = Paginator(movies_filter_complete, 2)
+	page = request.GET.get('page')
+	movies_filter = paginator.get_page(page)
+	print(movies_filter.has_next())
+	print(movies_filter)
+	return render(request, 'movies_list/search_details.html', {'filter': movies_filter,"movies_filter_complete":movies_filter_complete,
+		"language_list":language_list,
+		})
 
 
 
 
-# def Search_list(request):
-# 	query = request.GET.get('search')
-# 	# if request.method=="GET":
-# 	# 	print("this is get method")
-
-# 	movies_details=Movies_list.objects.filter(name__contains=query)|Movies_list.objects.filter(story_line__contains=query)
-
-# 	language_fill=Language_list.objects.all()
-# 	languagex = request.GET.getlist('language')
-# 	print(languagex)
-# 	for el in languagex:
-# 		print(el)
-# 	# movies_details=movies_details.filter(story_line__contains="mercy")
-	paginator=Paginator(movies_details,5)
-	page=request.GET.get('page')
-	movies_detail=paginator.get_page(page)
-
-
-# 	context={
-# 		"query":query,
-# 		"movies_detail":movies_detail,
-# 		"movies_details":movies_details,
-# 		"language_fill":language_fill
-
-# 	}
-# 	return render(request,"movies_list/search_details.html",context)
 
 
 def Movies_detail(request,movies_id):

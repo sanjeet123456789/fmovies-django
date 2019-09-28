@@ -25,38 +25,34 @@
               <ol class="breadcrumb  mx-2 px-0 my-1.5 bg-white">
                 <li class="breadcrumb-item"><a href="{%url 'movies-index'%}">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="movies_detail">Data</li>
+                <li class="breadcrumb-item active" aria-current="movies_details">Data</li>
               </ol>
             </nav>
         </div>
         <div class="row d-flex justify-content-between">
-            <div class="float-left">{{movies_details.count}}-Result found</div>
+            <div class="float-left">{{movies_filter_complete.count}}-Result found</div>
             <div class="float-right">
-                <form method="get" action=".">
-                <span>{%for language in language_fill%}
+                <form method="get">
+                <input type="text" name="name" id="name" hidden >
+                Language
+                {% for x in language_list%}
+                {{x.language_name}}<input type="checkbox" name="language" class="language" id="" value="{{x.language_id}}">
+                {%endfor%}
+                <br/>
 
-                        <label><input type="checkbox" name="language" class="language" id="{{language.language_id}}" value="{{language.language_id}}">{{language}}</label>
-                            
-                        {%endfor%}
-                </span>
+
+                <input type="submit" value="submit">
                 </form>
 
 
             </div>
         </div>
                 <div class="row ">
-            <!-- <div class="col col-md-2 mx-2 px-0 text-left my-2">
-               
-                <img  class="img-fluid img-thumbnail rounded w-auto  h-auto" src="../../media/{{movies_details.0.movies_thumbnail}}">
 
-               
-            </div> -->
-            <!-- <div class="col-md-12   my-2">
-              <h5 class="d-inline-block  text-justify text-nowrap text-truncate py-1 m-0"> </h5>
-              <p class="pd-0 m-0  rounded text-secondary">Movies_name: {%for movies in movies_detail%}{% if not forloop.first %} {% endif %}<a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><span class="bg-primary rounded px-1 text-white mr-1">{{movies.name|join:""}}</span></a>{%endfor%}</p> -->
-           <!--  <div class="container">
+ 
+            <div class="container">
                 <div class="movies_list row" style="justify-content:center;">
-                    {%for movies in movies_details%}{% if not forloop.first %} {% endif %}
+                    {%for movies in filter%}{% if not forloop.first %} {% endif %}
 
                     <div class="card mx-2 my-2 wrapper" style="width: 14rem;">
                         
@@ -80,67 +76,59 @@
 
 
                 </div>
-                     <div class="paginations" style="text-align:center">
-                {% if movies_detail.has_previous %}
-                <a class="btn btn-outline-info mb-4" href="{{ request.path }}?search={{query}}&page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="{{ request.path }}?search={{query}}&page={{ movies_detail.previous_movies_detail_number }}">Previous</a>
+                {% if 'name' in request.GET %}
+                <div class="paginations" style="text-align:center">
+                {% if filter.has_previous %}
+
+                <a class="btn btn-outline-info mb-4" href="{{ request.get_full_path }}&page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="{{ request.get_full_path }}&page={{ filter.previous_page_number }}">Previous</a>
               {% endif %}
 
-              {% for num in movies_detail.paginator.page_range %}
-                {% if movies_detail.number == num %}
-                  <a class="btn btn-info mb-4" href="{{ request.path }}?search={{query}}&page={{ num }}">{{ num }}</a>
-                {% elif num > movies_detail.number|add:'-3' and num < movies_detail.number|add:'3' %}
-                  <a class="btn btn-outline-info mb-4" href="{{ request.path }}?search={{query}}&page={{ num }}">{{ num }}</a>
+              {% for num in filter.paginator.page_range %}
+                {% if filter.number == num %}
+                  <a class="btn btn-info mb-4" href="{{ request.get_full_path }}&page={{ num }}">{{ num }}</a>
+                {% elif num > filter.number|add:'-3' and num < filter.number|add:'3' %}
+                  <a class="btn btn-outline-info mb-4" href="{{ request.get_full_path }}&page={{ num }}">{{ num }}</a>
                 {% endif %}
               {% endfor %}
 
-              {% if movies_detail.has_next %}
-                <a class="btn btn-outline-info mb-4" href="{{ request.path }}?search={{query}}&page={{ movies_detail.next_page_number  }}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="{{ request.path }}?search={{query}}&page={{ movies_detail.paginator.num_pages  }}">Last</a>
+              {% if filter.has_next %}
+                <a class="btn btn-outline-info mb-4" href="{{ request.get_full_path }}&page={{ filter.next_page_number  }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="{{ request.get_full_path }}&page={{ filter.paginator.num_pages  }}">Last</a>
               {% endif %}
 
                     </div>
+
+             {%else%}
+             <div class="paginations" style="text-align:center">
+                {% if filter.has_previous %}
+
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ filter.previous_page_number }}">Previous</a>
+              {% endif %}
+
+              {% for num in filter.paginator.page_range %}
+                {% if filter.number == num %}
+                  <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > filter.number|add:'-3' and num < filter.number|add:'3' %}
+                  <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+              {% endfor %}
+
+              {% if filter.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ filter.next_page_number  }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ filter.paginator.num_pages  }}">Last</a>
+              {% endif %}
+
+                    </div>
+            {% endif %}
              
-            </div> -->
+    </div>
 
-
+<!-- 
              <form method="get">
     {{ filter.form.as_p }}
-    <button type="submit">Search</button>
-  </form>
-  <ul>
-  
-    <!-- <li>{{ movies.name }} - {{ movies.story_line }}</li> -->
-    <div class="movies_list row" style="justify-content:center;">
-        {{filter.qs.count}}
-                    {% for movies in filter.qs %}
-
-                    <div class="card mx-2 my-2 wrapper" style="width: 14rem;">
-                        
-                        <img src="../../media/{{movies.movies_thumbnail}}" height="150" width="75" class="card-img-top" alt="...">
-                        <div class="bottom-right px-1 ">{{movies.Quality.quality_name}}</div>
-                        <div class="card-body" style="padding: 0.50rem;">
-                            <a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><h5 class="card-title m-1" style="height: 1.8rem;
-                            overflow: hidden">{{movies.name}}</h5></a>
-                            <a class="no-underline"  href="{%url 'movies-detail' movies_id=movies.movies_id %}"><p class="card-title m-1">{{movies.movies_user_id.username}}</p></a>
-                            <p class="card-text" style="height:3rem; overflow:hidden;">{{movies.story_line}}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                            <div class="tooltip">
-                                <div class="tooltips_movies_name">{{movies.name}} [{{movies.Quality.quality_name}}]</div>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                    {%endfor%}
-
-
-                </div>
-
-
-  </ul>
- <div class="form-group col-sm-8 col-md-6">
+     <div class="form-group col-sm-8 col-md-6">
           {{ filter.form.language.label_tag }}
           <div>
             {% for choice in filter.form.language %}
@@ -150,9 +138,11 @@
             {% endfor %}
           </div>
         </div>
+    <button type="submit">Search</button>
+  </form>
+{{filter.form.language}} -->
 
-
-
+          
 
 
 
@@ -163,7 +153,21 @@
     </div> 
 
 
+<script type="text/javascript">
+const urlParams = new URLSearchParams(window.location.search);
+const myParam = urlParams.get("name");
+console.log(myParam)
+document.getElementById("name").value = myParam;
+function existingUrl(fullUrl) {
+  let query = fullUrl.split("?")[1];
+  query.split("&").forEach(param => {
+    let [name, value] = param.split("=");
+    $(`input[name=${name}][value=${value}]`).prop("checked", true);
+  });
+}
 
+existingUrl(window.location.href);
+</script>
 
 <style type="text/css">
 .bottom-right {
