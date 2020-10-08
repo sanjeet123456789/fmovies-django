@@ -1,6 +1,6 @@
 django
 pillow
-djnago-better-filter-widget
-dal-admin-filter
+django-better-filter-widget
+dal-admin-filters
 django-crispy-forms
 django-filter
